@@ -212,9 +212,25 @@ class NcbiBlastSoap {
   }
 }
 
-// Initialise the WSNCBIBlast RPC/encoded SOAP interface.
-$WSNCBIBlast_WSDL = 'WSNCBIBlast_alt.wsdl';
-$server = new SoapServer($WSNCBIBlast_WSDL);
-$server->setClass('NcbiBlastSoap');
-$server->handle();
+if($_SERVER['REQUEST_METHOD'] == 'GET') {
+  ?>
+<html>
+<head>
+<title>WSNCBIBlast</title>
+</head>
+<body>
+<h1>WSNCBIBlast</h1>
+<hr />
+<p>See <a href="http://www.bioinfo-user.org.uk/dokuwiki/doku.php/bioinformatics/ebiws-1">documentation</a>.</p>
+<hr />
+</body>
+</html>
+<?php
+} else {
+  // Initialise the WSNCBIBlast RPC/encoded SOAP interface.
+  $WSNCBIBlast_WSDL = 'WSNCBIBlast_alt.wsdl';
+  $server = new SoapServer($WSNCBIBlast_WSDL);
+  $server->setClass('NcbiBlastSoap');
+  $server->handle();
+}
 ?>
