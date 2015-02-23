@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Revision: $Id: WSFasta.wsdl,v 1.13 2011/03/28 15:57:22 hpm Exp $ -->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+  xmlns:tns="http://www.ebi.ac.uk/WSFasta"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+  name="WSFasta"
+  targetNamespace="http://www.ebi.ac.uk/WSFasta">
+  <documentation>WSFasta: FASTA sequence similarity searches (see http://www.ebi.ac.uk/Tools/webservices/services/fasta)</documentation>
+    <types>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.ebi.ac.uk/WSFasta" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://www.ebi.ac.uk/WSFasta">
+        <xsd:complexType name="inputParams">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">Input parameters for tool, see http://www.ebi.ac.uk/Tools/webservices/services/fasta#inputparams for details.</xsd:documentation>
+          </xsd:annotation>
+          <xsd:all>
+            <xsd:element name="program" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation xml:lang="en">FASTA program to run.</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="database" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation xml:lang="en">Sequence database to search.</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="moltype" nillable="true" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation xml:lang="en">The type of the query sequence.</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+           <xsd:element name="histogram" nillable="true" type="xsd:boolean">
+             <xsd:annotation>
+               <xsd:documentation xml:lang="en">Display histogram </xsd:documentation>
+             </xsd:annotation>
+           </xsd:element>
+           <xsd:element name="nucleotide" nillable="true" type="xsd:boolean">
+             <xsd:annotation>
+               <xsd:documentation xml:lang="en">Set query type to nucleotide</xsd:documentation>
+             </xsd:annotation>
+           </xsd:element>
+           <xsd:element name="topstrand" nillable="true" type="xsd:boolean">
+             <xsd:annotation>
+               <xsd:documentation xml:lang="en">Perform search with “top” strand of query sequence.</xsd:documentation>
+             </xsd:annotation>
+           </xsd:element>
+           <xsd:element name="bottomstrand" nillable="true" type="xsd:boolean">
+             <xsd:annotation>
+               <xsd:documentation xml:lang="en">Perform search with “bottom” strand of query sequence.</xsd:documentation>
+             </xsd:annotation>
+           </xsd:element>
+           <xsd:element name="gapopen" nillable="true" type="xsd:int">
+             <xsd:annotation>
+               <xsd:documentation xml:lang="en">Gap creation penalty</xsd:documentation>
+             </xsd:annotation>
+           </xsd:element>
+           <xsd:element name="gapext" nillable="true" type="xsd:int">
+             <xsd:annotation>
+               <xsd:documentation xml:lang="en">Gap extension penalty</xsd:documentation>
+             </xsd:annotation>
+           </xsd:element>
+           <xsd:element name="scores" nillable="true" type="xsd:int">
+             <xsd:annotation>
+               <xsd:documentation xml:lang="en">Maximum number of scores to output</xsd:documentation>
+             </xsd:annotation>
+           </xsd:element>
+           <xsd:element name="alignments" nillable="true" type="xsd:int">
+             <xsd:annotation>
+               <xsd:documentation xml:lang="en">Maximum number of alignments to output</xsd:documentation>
+             </xsd:annotation>
+           </xsd:element>
+           <xsd:element name="ktup" nillable="true" type="xsd:int">
+             <xsd:annotation>
+               <xsd:documentation xml:lang="en">Word size</xsd:documentation>
+             </xsd:annotation>
+           </xsd:element>
+           <xsd:element name="matrix" nillable="true" type="xsd:string">
+             <xsd:annotation>
+               <xsd:documentation xml:lang="en">Scoring matrix.</xsd:documentation>
+             </xsd:annotation>
+           </xsd:element>
+           <xsd:element name="eupper" nillable="true" type="xsd:float">
+             <xsd:annotation>
+               <xsd:documentation xml:lang="en">Upper expectation limit</xsd:documentation>
+             </xsd:annotation>
+           </xsd:element>
+           <xsd:element name="elower" nillable="true" type="xsd:float">
+             <xsd:annotation>
+               <xsd:documentation xml:lang="en">Lower expectation limit</xsd:documentation>
+             </xsd:annotation>
+           </xsd:element>
+           <xsd:element name="filter" nillable="true" type="xsd:string">
+             <xsd:annotation>
+               <xsd:documentation xml:lang="en">Low complexity sequence filter for input sequence.</xsd:documentation>
+             </xsd:annotation>
+           </xsd:element>
+           <xsd:element name="stats" nillable="true" type="xsd:int">
+             <xsd:annotation>
+               <xsd:documentation xml:lang="en">Statistical model to use for search.</xsd:documentation>
+             </xsd:annotation>
+           </xsd:element>
+           <xsd:element name="dbrange" nillable="true" type="xsd:string">
+             <xsd:annotation>
+               <xsd:documentation xml:lang="en">Range of sequence lengths in database to search.</xsd:documentation>
+             </xsd:annotation>
+           </xsd:element>
+           <xsd:element name="seqrange" nillable="true" type="xsd:string">
+             <xsd:annotation>
+               <xsd:documentation xml:lang="en">Position range in query sequence to search with.</xsd:documentation>
+             </xsd:annotation>
+           </xsd:element>
+           <xsd:element name="outformat" type="xsd:string" nillable="true">
+             <xsd:annotation>
+               <xsd:documentation xml:lang="en">Not used</xsd:documentation>
+             </xsd:annotation>
+           </xsd:element>
+           <xsd:element name="async" type="xsd:boolean" nillable="true">
+             <xsd:annotation>
+               <xsd:documentation xml:lang="en">Asynchronous submission</xsd:documentation>
+             </xsd:annotation>
+           </xsd:element>
+           <xsd:element name="email" type="xsd:string" nillable="false">
+             <xsd:annotation>
+               <xsd:documentation xml:lang="en">User email address</xsd:documentation>
+             </xsd:annotation>
+           </xsd:element>
+         </xsd:all>
+       </xsd:complexType>
+       <xsd:complexType name="data">
+         <xsd:annotation>
+           <xsd:documentation xml:lang="en">Input data for tool, see http://www.ebi.ac.uk/Tools/webservices/services/fasta#data for details.</xsd:documentation>
+         </xsd:annotation>
+         <xsd:all>
+           <xsd:element name="type" type="xsd:string">
+             <xsd:annotation>
+               <xsd:documentation xml:lang="en">Input data type</xsd:documentation>
+             </xsd:annotation>
+           </xsd:element>
+           <xsd:element name="content" type="xsd:string">
+             <xsd:annotation>
+               <xsd:documentation xml:lang="en">Input data</xsd:documentation>
+             </xsd:annotation>
+           </xsd:element>
+         </xsd:all>
+       </xsd:complexType>
+       <xsd:complexType name="ArrayOf_xsd_string">
+         <xsd:complexContent>
+           <xsd:restriction base="soapenc:Array">
+             <xsd:attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:string[]"/>
+           </xsd:restriction>
+         </xsd:complexContent>
+       </xsd:complexType>
+       <xsd:complexType name="WSArrayofFile">
+         <xsd:complexContent>
+           <xsd:restriction base="soapenc:Array">
+             <xsd:attribute ref="soapenc:arrayType" wsdl:arrayType="tns:WSFile[]"/>
+           </xsd:restriction>
+         </xsd:complexContent>
+       </xsd:complexType>
+       <xsd:complexType name="WSArrayofData">
+         <xsd:complexContent>
+           <xsd:restriction base="soapenc:Array">
+             <xsd:attribute ref="soapenc:arrayType" wsdl:arrayType="tns:data[]"/>
+           </xsd:restriction>
+         </xsd:complexContent>
+       </xsd:complexType>
+       <xsd:complexType name="WSFile">
+         <xsd:annotation>
+           <xsd:documentation xml:lang="en">Result data type description, see http://www.ebi.ac.uk/Tools/webservices/services/fasta#wsfile for details.</xsd:documentation>
+         </xsd:annotation>
+         <xsd:all>
+           <xsd:element name="type" type="xsd:string">
+             <xsd:annotation>
+               <xsd:documentation xml:lang="en">Result type name.</xsd:documentation>
+             </xsd:annotation>
+           </xsd:element>
+           <xsd:element name="ext" type="xsd:string">
+             <xsd:annotation>
+               <xsd:documentation xml:lang="en">File extension for result type</xsd:documentation>
+             </xsd:annotation>
+           </xsd:element>
+         </xsd:all>
+       </xsd:complexType>
+       <xsd:complexType name="outData">
+         <xsd:annotation>
+           <xsd:documentation xml:lang="en">Description of input options, see http://www.ebi.ac.uk/Tools/webservices/services/fasta#outdata for details.</xsd:documentation>
+         </xsd:annotation>
+         <xsd:all>
+           <xsd:element name="print_name" nillable="false" type="xsd:string">
+             <xsd:annotation>
+               <xsd:documentation xml:lang="en">Name to display in a user interface</xsd:documentation>
+             </xsd:annotation>
+           </xsd:element>
+           <xsd:element name="name" nillable="false" type="xsd:string">
+             <xsd:annotation>
+               <xsd:documentation xml:lang="en">Name to be passed as the option value.</xsd:documentation>
+             </xsd:annotation>
+           </xsd:element>
+           <xsd:element name="selected" nillable="true" type="xsd:string">
+             <xsd:annotation>
+               <xsd:documentation xml:lang="en">Yes/no flag indicating if this is the default value.</xsd:documentation>
+             </xsd:annotation>
+           </xsd:element>
+           <xsd:element name="data_type" nillable="true" type="xsd:string">
+             <xsd:annotation>
+               <xsd:documentation xml:lang="en">The type of data being searched.</xsd:documentation>
+             </xsd:annotation>
+           </xsd:element>
+           <xsd:element name="input_type" nillable="true" type="xsd:string">
+             <xsd:annotation>
+               <xsd:documentation xml:lang="en">The type of input data.</xsd:documentation>
+             </xsd:annotation>
+           </xsd:element>
+           <xsd:element name="search_type" nillable="true" type="xsd:string">
+             <xsd:annotation>
+               <xsd:documentation xml:lang="en">The type of search performed.</xsd:documentation>
+             </xsd:annotation>
+           </xsd:element>
+         </xsd:all>
+       </xsd:complexType>
+       <xsd:complexType name="WSArrayofoutData">
+         <xsd:complexContent>
+           <xsd:restriction base="soapenc:Array">
+             <xsd:attribute ref="soapenc:arrayType" wsdl:arrayType="tns:outData[]"/>
+           </xsd:restriction>
+         </xsd:complexContent>
+       </xsd:complexType>
+    </schema>
+  </types>
+  <message name="statusRequest">
+    <part name="jobid" type="xsd:string"/>
+  </message>
+  <message name="statusResponse">
+    <part name="status" type="xsd:string"/>
+  </message>
+  <message name="resultsRequest">
+    <part name="jobid" type="xsd:string"/>
+  </message>
+  <message name="resultsResponse">
+    <part name="results" type="tns:WSArrayofFile"/>
+  </message>
+  <message name="pollRequest">
+    <part name="jobid" type="xsd:string"/>
+    <part name="type" type="xsd:string"/>
+  </message>
+  <message name="pollResponse">
+    <part name="output" type="xsd:base64Binary"/>
+  </message>
+  <message name="runFastaRequest">
+    <part name="params" type="tns:inputParams"/>
+    <part name="content" type="tns:WSArrayofData"/>
+  </message>
+  <message name="runFastaResponse">
+    <part name="jobid" type="xsd:string"/>
+  </message>
+  <message name="polljobRequest">
+    <part name="jobid" type="xsd:string"/>
+    <part name="outformat" type="xsd:string"/>
+  </message>
+  <message name="polljobResponse">
+    <part name="result" type="xsd:string"/>
+  </message>
+  <message name="doFastaRequest">
+    <part name="params" type="tns:inputParams"/>
+    <part name="content" type="xsd:base64Binary"/>
+  </message>
+  <message name="doFastaResponse">
+    <part name="result" type="xsd:base64Binary"/>
+  </message>
+  <message name="getIdsRequest">
+    <part name="jobid" type="xsd:string"/>
+  </message>
+  <message name="getIdsResponse">
+    <part name="result" type="tns:ArrayOf_xsd_string"/>
+  </message>
+  <message name="getMatricesRequest">
+  </message>
+  <message name="getMatricesResponse">
+    <part name="result" type="tns:WSArrayofoutData"/>
+  </message>
+  <message name="getProgramsRequest">
+  </message>
+  <message name="getProgramsResponse">
+    <part name="result" type="tns:WSArrayofoutData"/>
+  </message>
+  <message name="getDatabasesRequest"> 
+  </message>
+  <message name="getDatabasesResponse">
+    <part name="result" type="tns:WSArrayofoutData"/>
+  </message>
+  <message name="getStatsRequest"> 
+  </message>
+  <message name="getStatsResponse">
+    <part name="result" type="tns:WSArrayofoutData"/>
+  </message>
+  <message name="getFiltersRequest">
+  </message>
+  <message name="getFiltersResponse">
+    <part name="result" type="tns:WSArrayofoutData"/>
+  </message>
+  <portType name="WSFasta">
+    <operation name="runFasta" parameterOrder="params content">
+      <documentation>Submit a FASTA analysis job (see http://www.ebi.ac.uk/Tools/webservices/services/fasta#runfasta_params_content)</documentation>
+      <input name="runFastaRequest" message="tns:runFastaRequest"/>
+      <output name="runFastaResponse" message="tns:runFastaResponse"/>
+    </operation>
+    <operation name="checkStatus" parameterOrder="jobid">
+      <documentation>Get the status of a submited job (see http://www.ebi.ac.uk/Tools/webservices/services/fasta#checkstatus_jobid)</documentation>
+      <input name="statusRequest" message="tns:statusRequest"/>
+      <output name="statusResponse" message="tns:statusResponse"/>
+    </operation>
+    <operation name="poll" parameterOrder="jobid type">
+      <documentation>Get the results of a job (see http://www.ebi.ac.uk/Tools/webservices/services/fasta#poll_jobid_type)</documentation>
+      <input name="pollRequest" message="tns:pollRequest"/>
+      <output name="pollResponse" message="tns:pollResponse"/>
+    </operation>
+    <operation name="getResults" parameterOrder="jobid">
+      <documentation>Get the available result types for a completed job (see http://www.ebi.ac.uk/Tools/webservices/services/fasta#getresults_jobid)</documentation>
+      <input name="resultsRequest" message="tns:resultsRequest"/>
+      <output name="resultsResponse" message="tns:resultsResponse"/>
+    </operation>
+    <operation name="polljob" parameterOrder="jobid outformat">
+      <documentation>Deprecated (see http://www.ebi.ac.uk/Tools/webservices/services/fasta#polljob_jobid_outformat)</documentation>
+      <input name="polljobRequest" message="tns:polljobRequest"/>
+      <output name="polljobResponse" message="tns:polljobResponse"/>
+    </operation>
+    <operation name="doFasta" parameterOrder="params content">
+      <documentation>Deprecated (see http://www.ebi.ac.uk/Tools/webservices/services/fasta#doFasta_params_content)</documentation>
+      <input name="doFastaRequest" message="tns:doFastaRequest"/>
+      <output name="doFastaResponse" message="tns:doFastaResponse"/>
+    </operation>
+    <operation name="getIds" parameterOrder="jobid">
+      <documentation>Get the hit identifiers from the analysis result (see http://www.ebi.ac.uk/Tools/webservices/services/fasta#getids_jobid)</documentation>
+      <input name="getIdsRequest" message="tns:getIdsRequest"/>
+      <output name="getIdsResponse" message="tns:getIdsResponse"/>
+    </operation>
+    <operation name="getMatrices">
+      <documentation>Get the list of available scoring matrices (see http://www.ebi.ac.uk/Tools/webservices/services/fasta#getmatrices)</documentation>
+      <input name="getMatricesRequest" message="tns:getMatricesRequest"/>
+      <output name="getMatricesResponse" message="tns:getMatricesResponse"/>
+    </operation>
+    <operation name="getPrograms">
+      <documentation>Get the list of available analysis programs (see http://www.ebi.ac.uk/Tools/webservices/services/fasta#getprograms)</documentation>
+      <input name="getProgramsRequest" message="tns:getProgramsRequest"/>
+      <output name="getProgramsResponse" message="tns:getProgramsResponse"/>
+    </operation>
+    <operation name="getDatabases">
+      <documentation>Get the list of available databases (see http://www.ebi.ac.uk/Tools/webservices/services/fasta#getdatabases)</documentation>
+      <input name="getDatabasesRequest" message="tns:getDatabasesRequest"/>
+      <output name="getDatabasesResponse" message="tns:getDatabasesResponse"/>
+    </operation>
+    <operation name="getStats">
+      <documentation>Get the list of available statistical methods (see http://www.ebi.ac.uk/Tools/webservices/services/fasta#getstats)</documentation>
+      <input name="getStatsRequest" message="tns:getStatsRequest"/>
+      <output name="getStatsResponse" message="tns:getStatsResponse"/>
+    </operation>
+    <operation name="getFilters">
+      <documentation>Get the list of available input sequence filtering methods (see http://www.ebi.ac.uk/Tools/webservices/services/fasta#getfilters)</documentation>
+      <input name="getFiltersRequest" message="tns:getFiltersRequest"/>
+      <output name="getFiltersResponse" message="tns:getFiltersResponse"/>
+    </operation>
+  </portType>
+  <binding name="WSFastaSoapBinding" type="tns:WSFasta">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="poll">
+      <documentation>Get the results of a job (see http://www.ebi.ac.uk/Tools/webservices/services/fasta#poll_jobid_type)</documentation>
+      <soap:operation soapAction="http://www.ebi.ac.uk/WSFasta#poll"/>
+      <input name="pollRequest">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSFasta" use="encoded"/>
+      </input>
+      <output name="pollResponse">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSFasta" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="runFasta">
+      <documentation>Submit a FASTA analysis job (see http://www.ebi.ac.uk/Tools/webservices/services/fasta#runfasta_params_content)</documentation>
+      <soap:operation soapAction="http://www.ebi.ac.uk/WSFasta#runFasta"/>
+      <input name="runFastaRequest">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSFasta" use="encoded"/>
+      </input>
+      <output name="runFastaResponse">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSFasta" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="checkStatus">
+      <documentation>Get the status of a submited job (see http://www.ebi.ac.uk/Tools/webservices/services/fasta#checkstatus_jobid)</documentation>
+      <soap:operation soapAction="http://www.ebi.ac.uk/WSFasta#checkStatus"/>
+      <input name="statusRequest">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSFasta" use="encoded"/>
+      </input>
+      <output name="statusResponse">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSFasta" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="getResults">
+      <documentation>Get the available result types for a completed job (see http://www.ebi.ac.uk/Tools/webservices/services/fasta#getresults_jobid)</documentation>
+      <soap:operation soapAction="http://www.ebi.ac.uk/WSFasta#getResults"/>
+      <input name="resultsRequest">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSFasta" use="encoded"/>
+      </input>
+      <output name="resultsResponse">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSFasta" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="polljob">
+      <documentation>Deprecated (see http://www.ebi.ac.uk/Tools/webservices/services/fasta#polljob_jobid_outformat)</documentation>
+      <soap:operation soapAction="http://www.ebi.ac.uk/WSFasta#polljob"/>
+      <input name="polljobRequest">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSFasta" use="encoded"/>
+      </input>
+      <output name="polljobResponse">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSFasta" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="doFasta">
+      <documentation>Deprecated (see http://www.ebi.ac.uk/Tools/webservices/services/fasta#doFasta_params_content)</documentation>
+      <soap:operation soapAction="http://www.ebi.ac.uk/WSFasta#doFasta"/>
+      <input name="doFastaRequest">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSFasta" use="encoded"/>
+      </input>
+      <output name="doFastaResponse">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSFasta" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="getIds">
+      <documentation>Get the hit identifiers from the analysis result (see http://www.ebi.ac.uk/Tools/webservices/services/fasta#getids_jobid)</documentation>
+      <soap:operation soapAction="http://www.ebi.ac.uk/WSFasta#getIds"/>
+      <input name="getIdsRequest">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSFasta" use="encoded"/>
+      </input>
+      <output name="getIdsResponse">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSFasta" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="getMatrices">
+      <documentation>Get available scoring matrices (see http://www.ebi.ac.uk/Tools/webservices/services/fasta#getmatrices)</documentation>
+      <soap:operation soapAction="http://www.ebi.ac.uk/WSFasta#getMatrices"/>
+      <input name="getMatricesRequest">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSFasta" use="encoded"/>
+      </input>
+      <output name="getMatricesResponse">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSFasta" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="getPrograms">
+      <documentation>Get search programs (see http://www.ebi.ac.uk/Tools/webservices/services/fasta#getprograms)</documentation>
+      <soap:operation soapAction="http://www.ebi.ac.uk/WSFasta#getPrograms"/>
+      <input name="getProgramsRequest">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSFasta" use="encoded"/>
+      </input>
+      <output name="getProgramsResponse">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSFasta" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="getDatabases">
+      <documentation>Get available databases (see http://www.ebi.ac.uk/Tools/webservices/services/fasta#getdatabases)</documentation>
+      <soap:operation soapAction="http://www.ebi.ac.uk/WSFasta#getDatabases"/>
+      <input name="getDatabasesRequest">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSFasta" use="encoded"/>
+      </input>
+      <output name="getDatabasesResponse">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSFasta" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="getStats">
+      <documentation>Get statistical models (see http://www.ebi.ac.uk/Tools/webservices/services/fasta#getstats)</documentation>
+      <soap:operation soapAction="http://www.ebi.ac.uk/WSFasta#getStats"/>
+      <input name="getStatsRequest">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSFasta" use="encoded"/>
+      </input>
+      <output name="getStatsResponse">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSFasta" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="getFilters">
+      <documentation>Get input sequence filtering methods (see http://www.ebi.ac.uk/Tools/webservices/services/fasta#getfilters)</documentation>
+      <soap:operation soapAction="http://www.ebi.ac.uk/WSFasta#getFilters"/>
+      <input name="getFiltersRequest">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSFasta" use="encoded"/>
+      </input>
+      <output name="getFiltersResponse">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSFasta" use="encoded"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="WSFastaService">
+  	<documentation>WSFasta: FASTA sequence similarity searches (see http://www.ebi.ac.uk/Tools/webservices/services/fasta).
+
+	Note: this RPC/encoded SOAP service was decommissioned on Monday 28th March 2011, see http://www.ebi.ac.uk/Tools/webservices/services/fasta for details of alternative REST and document/literal SOAP services.
+  	</documentation>
+    <port name="WSFasta" binding="tns:WSFastaSoapBinding">
+      <soap:address location="http://www.ebi.ac.uk/Tools/es/ws-servers/WSFasta"/>
+    </port>
+  </service>
+</definitions>

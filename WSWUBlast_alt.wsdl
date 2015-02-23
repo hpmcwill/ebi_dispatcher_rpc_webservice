@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Revision: $Id: WSWUBlast.wsdl,v 1.10 2011/03/28 15:57:22 hpm Exp $ -->
+<definitions name="WSWUBlast" targetNamespace="http://www.ebi.ac.uk/WSWUBlast"
+  xmlns="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+  xmlns:tns="http://www.ebi.ac.uk/WSWUBlast"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+  <documentation>WSWUBlast: WU-BLAST sequence similarity searches (see http://www.ebi.ac.uk/Tools/webservices/services/wublast)</documentation>
+  <types>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema"
+      targetNamespace="http://www.ebi.ac.uk/WSWUBlast"
+      xmlns:tns="http://www.ebi.ac.uk/WSWUBlast"
+      xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+      xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+      xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+      <xsd:complexType name="inputParams">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">Input parameters for tool, see	http://www.ebi.ac.uk/Tools/webservices/services/wublast#inputparams for details.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element name="program" nillable="false" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Search program.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="database" nillable="false" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Database to search.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="matrix" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Scoring matrix.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="exp" nillable="true" type="xsd:float">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Expectation threshold.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="echofilter" nillable="true" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Include filtered input sequence in output.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="filter" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Low complexity filter for input sequence.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="numal" nillable="true" type="xsd:int">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Maximum number of alignments in output.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="scores" nillable="true" type="xsd:int">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Maximum number of scores in output.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="sensitivity" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Search sensitivity.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="sort" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Sort order for hits.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="stats" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Search statistics.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="strand" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Search strand for nucleotide sequences.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="outformat" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Not used.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="topcombon" nillable="true" type="xsd:int">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Consistant sets of HSPs to report.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="appxml" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Generate application XML.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="async" nillable="true" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Asynchronous submission.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="email" nillable="false" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">User e-mail address.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="data">
+         <xsd:annotation>
+           <xsd:documentation xml:lang="en">Input data for tool, see http://www.ebi.ac.uk/Tools/webservices/services/wublast#data for details.</xsd:documentation>
+         </xsd:annotation>
+        <xsd:all>
+          <xsd:element name="type" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Input data type.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="content" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Input data.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOf_xsd_string">
+        <xsd:complexContent>
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:string[]"/>
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="WSArrayofFile">
+        <xsd:complexContent>
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute ref="soapenc:arrayType" wsdl:arrayType="tns:WSFile[]"/>
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="WSArrayofData">
+        <xsd:complexContent>
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute ref="soapenc:arrayType" wsdl:arrayType="tns:data[]"/>
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="WSFile">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">Result data type description, see http://www.ebi.ac.uk/Tools/webservices/services/wublast#wsfile for details.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element name="type" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Result type name.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ext" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">File extension for result type</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="outData">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">Description of input options, see http://www.ebi.ac.uk/Tools/webservices/services/wublast#outdata for details.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element name="print_name" nillable="false" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Name to display in a user interface</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="name" nillable="false" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Name to be passed as the option value.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="selected" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Yes/no flag indicating if this is the default value.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="data_type" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">The type of data being searched.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="input_type" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">The type of input data.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="search_type" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">The type of search performed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="WSArrayofoutData">
+        <xsd:complexContent>
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute ref="soapenc:arrayType" wsdl:arrayType="tns:outData[]"/>
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+    </schema>
+  </types>
+  <message name="statusRequest">
+    <part name="jobid" type="xsd:string"/>
+  </message>
+  <message name="statusResponse">
+    <part name="status" type="xsd:string"/>
+  </message>
+  <message name="resultsRequest">
+    <part name="jobid" type="xsd:string" />
+  </message>
+  <message name="resultsResponse">
+    <part name="result" type="tns:WSArrayofFile"/>
+  </message>
+  <message name="pollRequest">
+    <part name="jobid" type="xsd:string"/>
+    <part name="type" type="xsd:string"/>
+  </message>
+  <message name="pollResponse">
+    <part name="result" type="xsd:base64Binary"/>
+  </message>
+  <message name="getIdsRequest">
+    <part name="jobid" type="xsd:string"/>
+  </message>
+  <message name="getIdsResponse">
+    <part name="result" type="tns:ArrayOf_xsd_string"/>
+  </message>
+  <message name="getMatricesRequest">  
+  </message>
+  <message name="getMatricesResponse">
+    <part name="result" type="tns:WSArrayofoutData"/>	
+  </message>
+  <message name="getProgramsRequest"> 
+  </message>
+  <message name="getProgramsResponse">
+    <part name="result" type="tns:WSArrayofoutData"/>	
+  </message>
+  <message name="getDatabasesRequest">   
+  </message>
+  <message name="getDatabasesResponse">
+    <part name="result" type="tns:WSArrayofoutData"/>	
+  </message>
+  <message name="getSortRequest"> 
+  </message>
+  <message name="getSortResponse">
+    <part name="result" type="tns:WSArrayofoutData"/>	
+  </message>
+  <message name="getStatsRequest"> 
+  </message>
+  <message name="getStatsResponse">
+    <part name="result" type="tns:WSArrayofoutData"/>	
+  </message>
+  <message name="getXmlFormatsRequest"> 
+  </message>
+  <message name="getXmlFormatsResponse">
+    <part name="result" type="tns:WSArrayofoutData"/>	
+  </message>
+  <message name="getSensitivityRequest"> 
+  </message>
+  <message name="getSensitivityResponse">
+    <part name="result" type="tns:WSArrayofoutData"/>	
+  </message>
+  <message name="getFiltersRequest"> 
+  </message>
+  <message name="getFiltersResponse">
+    <part name="result" type="tns:WSArrayofoutData"/>	
+  </message>
+  <message name="blastp">
+    <part name="database" type="xsd:string"/>
+    <part name="sequence" type="xsd:string"/>
+    <part name="email" type="xsd:string"/>
+  </message>
+  <message name="blastpResponse">
+    <part name="jobid" type="xsd:string"/>
+  </message>
+  <message name="blastn">
+    <part name="database" type="xsd:string"/>
+    <part name="sequence" type="xsd:string"/>
+    <part name="email" type="xsd:string"/>
+  </message>
+  <message name="blastnResponse">
+    <part name="jobid" type="xsd:string"/>
+  </message>
+  <message name="getOutput">
+    <part name="jobid" type="xsd:string"/>
+  </message>
+  <message name="getOutputResponse">
+    <part name="result" type="xsd:string"/>
+  </message>
+  <message name="getXML">
+    <part name="jobid" type="xsd:string"/>
+  </message>
+  <message name="getXMLResponse">
+    <part name="result" type="xsd:string"/>
+  </message>
+  <message name="runWUBlastRequest">
+    <part name="params" type="tns:inputParams"/>
+    <part name="content" type="tns:WSArrayofData"/>
+  </message>
+  <message name="runWUBlastResponse">
+    <part name="jobid" type="xsd:string"/>
+  </message>
+  <message name="polljobRequest">
+    <part name="jobid" type="xsd:string"/>
+    <part name="outformat" type="xsd:string"/>
+  </message>
+  <message name="polljobResponse">
+    <part name="result" type="xsd:base64Binary"/>
+  </message>
+  <message name="doWUBlastRequest">
+    <part name="params" type="tns:inputParams"/>
+    <part name="content" type="xsd:base64Binary"/>
+  </message>
+  <message name="doWUBlastResponse">
+    <part name="result" type="xsd:base64Binary"/>
+  </message>
+  <portType name="WSWUBlast">
+    <operation name="blastp" parameterOrder="database sequence email">
+      <documentation>Submit a protein sequence vs. protein database search (blastp) using default parameters. See http://www.ebi.ac.uk/Tools/webservices/services/wublast#blastp_database_sequence_email</documentation>
+      <input name="blastp" message="tns:blastp">
+      </input>
+      <output name="blastpResponse" message="tns:blastpResponse">
+      </output>
+    </operation>
+    <operation name="blastn" parameterOrder="database sequence email">
+      <documentation>Submit a nucleotide sequence vs. nucleotide database search (blastn) using default parameters. See http://www.ebi.ac.uk/Tools/webservices/services/wublast#blastn_database_sequence_email</documentation>
+      <input name="blastn" message="tns:blastn">
+      </input>
+      <output name="blastnResponse" message="tns:blastnResponse">
+      </output>
+    </operation>
+    <operation name="getOutput" parameterOrder="jobid">
+      <documentation>Get plain text output for a job (see http://www.ebi.ac.uk/Tools/webservices/services/wublast#getoutput_jobid)</documentation>
+      <input name="getOutput" message="tns:getOutput">
+      </input>
+      <output name="getOutputResponse" message="tns:getOutputResponse">
+      </output>
+    </operation>
+    <operation name="getXML" parameterOrder="jobid">
+      <documentation>Get XML output for a job (see http://www.ebi.ac.uk/Tools/webservices/services/wublast#getxml_jobid)</documentation>
+      <input name="getXML" message="tns:getXML"></input>
+      <output name="getXMLResponse" message="tns:getXMLResponse"></output>
+    </operation>
+    <operation name="runWUBlast" parameterOrder="params content">
+      <documentation>Submit a WU-BLAST job (see http://www.ebi.ac.uk/Tools/webservices/services/wublast#runwublast_params_content)</documentation>
+      <input name="runWUBlastRequest" message="tns:runWUBlastRequest">
+      </input>
+      <output name="runWUBlastResponse" message="tns:runWUBlastResponse">
+      </output>
+    </operation>
+    <operation name="checkStatus" parameterOrder="jobid">
+      <documentation>Get the status of a submited job (see http://www.ebi.ac.uk/Tools/webservices/services/wublast#checkstatus_jobid)</documentation>
+      <input name="statusRequest" message="tns:statusRequest"></input>
+      <output name="statusResponse" message="tns:statusResponse"></output>
+    </operation>
+    <operation name="poll" parameterOrder="jobid type">
+      <documentation>Get the results of a job (see http://www.ebi.ac.uk/Tools/webservices/services/wublast#poll_jobid_type)</documentation>
+      <input name="pollRequest" message="tns:pollRequest"></input>
+      <output name="pollResponse" message="tns:pollResponse"></output>
+    </operation>
+    <operation name="getResults" parameterOrder="jobid">
+      <documentation>Get the available result types for a completed job (see http://www.ebi.ac.uk/Tools/webservices/services/wublast#getresults_jobid)</documentation>
+      <input name="resultsRequest" message="tns:resultsRequest"></input>
+      <output name="resultsResponse" message="tns:resultsResponse"></output>
+    </operation>
+    <operation name="getIds" parameterOrder="jobid">
+      <documentation>Get the hit identifiers from the analysis result (see http://www.ebi.ac.uk/Tools/webservices/services/wublast#getids_jobid)</documentation>
+      <input name="getIdsRequest" message="tns:getIdsRequest"></input>
+      <output name="getIdsResponse" message="tns:getIdsResponse"></output>
+    </operation>
+    <operation name="getMatrices">
+      <documentation>Get the list of available scoring matrices (see http://www.ebi.ac.uk/Tools/webservices/services/wublast#getmatrices)</documentation>
+      <input name="getMatricesRequest" message="tns:getMatricesRequest"/>
+      <output name="getMatricesResponse" message="tns:getMatricesResponse"/>
+    </operation>
+    <operation name="getPrograms">
+      <documentation>Get the list of available analysis programs (see http://www.ebi.ac.uk/Tools/webservices/services/wublast#getprograms)</documentation>
+      <input name="getProgramsRequest" message="tns:getProgramsRequest"/>
+      <output name="getProgramsResponse" message="tns:getProgramsResponse"/>
+    </operation>
+    <operation name="getDatabases">
+      <documentation>Get the list of available databases (see http://www.ebi.ac.uk/Tools/webservices/services/wublast#getdatabases)</documentation>
+      <input name="getDatabasesRequest" message="tns:getDatabasesRequest"/>
+      <output name="getDatabasesResponse" message="tns:getDatabasesResponse"/>
+    </operation>
+    <operation name="getSort">
+      <documentation>Get list of available sorting options (see http://www.ebi.ac.uk/Tools/webservices/services/wublast#getsort)</documentation>
+      <input name="getSortRequest" message="tns:getSortRequest"/>
+      <output name="getSortResponse" message="tns:getSortResponse"/>
+    </operation>
+    <operation name="getStats">
+      <documentation>Get the list of available statistical methods (see http://www.ebi.ac.uk/Tools/webservices/services/wublast#getstats)</documentation>
+      <input name="getStatsRequest" message="tns:getStatsRequest"/>
+      <output name="getStatsResponse" message="tns:getStatsResponse"/>
+    </operation>
+    <operation name="getXmlFormats">
+      <documentation>Get list of options for XML formats (see http://www.ebi.ac.uk/Tools/webservices/services/wublast#getxmlformats)</documentation>
+      <input name="getXmlFormatsRequest" message="tns:getXmlFormatsRequest"/>
+      <output name="getXmlFormatsResponse" message="tns:getXmlFormatsResponse"/>
+    </operation>
+    <operation name="getSensitivity">
+      <documentation>Get list of sensitivity values (see http://www.ebi.ac.uk/Tools/webservices/services/wublast#getsensitivity)</documentation>
+      <input name="getSensitivityRequest" message="tns:getSensitivityRequest"/>
+      <output name="getSensitivityResponse" message="tns:getSensitivityResponse"/>
+    </operation>
+    <operation name="getFilters">
+      <documentation>Get the list of available input sequence filtering methods (see http://www.ebi.ac.uk/Tools/webservices/services/wublast#getfilters)</documentation>
+      <input name="getFiltersRequest" message="tns:getFiltersRequest"/>
+      <output name="getFiltersResponse" message="tns:getFiltersResponse"/>
+    </operation>
+    <operation name="polljob" parameterOrder="jobid outformat">
+      <documentation>Deprecated (see http://www.ebi.ac.uk/Tools/webservices/services/wublast#polljob_jobid_outformat)</documentation>
+      <input name="polljobRequest" message="tns:polljobRequest"></input>
+      <output name="polljobResponse" message="tns:polljobResponse"></output>
+    </operation>
+    <operation name="doWUBlast" parameterOrder="params content">
+      <documentation>Deprecated (see http://www.ebi.ac.uk/Tools/webservices/services/wublast#dowublast_params_content)</documentation>
+      <input name="doWUBlastRequest" message="tns:doWUBlastRequest"></input>
+      <output name="doWUBlastResponse" message="tns:doWUBlastResponse">
+      </output>
+    </operation>
+  </portType>
+  <binding name="WSWUBlastSoapBinding" type="tns:WSWUBlast">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="runWUBlast">
+      <documentation>Submit a WU-BLAST job (see http://www.ebi.ac.uk/Tools/webservices/services/wublast#runwublast_params_content)</documentation>
+      <soap:operation soapAction="http://www.ebi.ac.uk/WSWUBlast#runWUBlast"/>
+      <input name="runWUBlastRequest">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </input>
+      <output name="runWUBlastResponse">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="poll">
+      <documentation>Get the results of a job (see http://www.ebi.ac.uk/Tools/webservices/services/wublast#poll_jobid_type)</documentation>
+      <soap:operation soapAction="http://www.ebi.ac.uk/WSWUBlast#poll"/>
+      <input name="pollRequest">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </input>
+      <output name="pollResponse">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="getIds">
+      <documentation>Get the hit identifiers from the analysis result (see http://www.ebi.ac.uk/Tools/webservices/services/wublast#getids_jobid)</documentation>
+      <soap:operation soapAction="http://www.ebi.ac.uk/WSWUBlast#getIds"/>
+      <input name="getIdsRequest">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </input>
+      <output name="getIdsResponse">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="getMatrices">
+      <documentation>Get the list of available scoring matrices (see http://www.ebi.ac.uk/Tools/webservices/services/wublast#getmatrices)</documentation>
+      <soap:operation soapAction="http://www.ebi.ac.uk/WSWUBlast#getMatrices"/>
+      <input name="getMatricesRequest">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </input>
+      <output name="getMatricesResponse">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </output>		
+    </operation>
+    <operation name="getPrograms">
+      <documentation>Get the list of available analysis programs (see http://www.ebi.ac.uk/Tools/webservices/services/wublast#getprograms)</documentation>
+      <soap:operation soapAction="http://www.ebi.ac.uk/WSWUBlast#getPrograms"/>
+      <input name="getProgramsRequest">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </input>
+      <output name="getProgramsResponse">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </output>		
+    </operation>
+    <operation name="getDatabases">
+      <documentation>Get the list of available databases (see http://www.ebi.ac.uk/Tools/webservices/services/wublast#getdatabases)</documentation>
+      <soap:operation soapAction="http://www.ebi.ac.uk/WSWUBlast#getDatabases"/>
+      <input name="getDatabasesRequest">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </input>
+      <output name="getDatabasesResponse">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </output>		
+    </operation>
+    <operation name="getSort">
+      <documentation>Get list of available sorting options (see http://www.ebi.ac.uk/Tools/webservices/services/wublast#getsort)</documentation>
+      <soap:operation soapAction="http://www.ebi.ac.uk/WSWUBlast#getSort"/>
+      <input name="getSortRequest">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </input>
+      <output name="getSortResponse">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </output>		
+    </operation>
+    <operation name="getStats">
+      <documentation>Get the list of available statistical methods (see http://www.ebi.ac.uk/Tools/webservices/services/wublast#getstats)</documentation>
+      <soap:operation soapAction="http://www.ebi.ac.uk/WSWUBlast#getStats"/>
+      <input name="getStatsRequest">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </input>
+      <output name="getStatsResponse">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </output>		
+    </operation>
+    <operation name="getXmlFormats">
+      <documentation>Get list of options for XML formats (see http://www.ebi.ac.uk/Tools/webservices/services/wublast#getxmlformats)</documentation>
+      <soap:operation soapAction="http://www.ebi.ac.uk/WSWUBlast#getXmlFormats"/>
+      <input name="getXmlFormatsRequest">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </input>
+      <output name="getXmlFormatsResponse">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </output>		
+    </operation>
+    <operation name="getSensitivity">
+      <documentation>Get list of sensitivity values (see http://www.ebi.ac.uk/Tools/webservices/services/wublast#getsensitivity)</documentation>
+      <soap:operation soapAction="http://www.ebi.ac.uk/WSWUBlast#getSensitivity"/>
+      <input name="getSensitivityRequest">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </input>
+      <output name="getSensitivityResponse">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </output>		
+    </operation>
+    <operation name="getFilters">
+      <documentation>Get the list of available input sequence filtering methods (see http://www.ebi.ac.uk/Tools/webservices/services/wublast#getfilters)</documentation>
+      <soap:operation soapAction="http://www.ebi.ac.uk/WSWUBlast#getFilters"/>
+      <input name="getFiltersRequest">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </input>
+      <output name="getFiltersResponse">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </output>		
+    </operation>
+    <operation name="checkStatus">
+      <documentation>Get the status of a submited job (see http://www.ebi.ac.uk/Tools/webservices/services/wublast#checkstatus_jobid)</documentation>
+      <soap:operation soapAction="http://www.ebi.ac.uk/WSWUBlast#checkStatus"/>
+      <input name="statusRequest">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </input>
+      <output name="statusResponse">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="getResults">
+      <documentation>Get the available result types for a completed job (see http://www.ebi.ac.uk/Tools/webservices/services/wublast#getresults_jobid)</documentation>
+      <soap:operation soapAction="http://www.ebi.ac.uk/WSWUBlast#getResults"/>
+      <input name="resultsRequest">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </input>
+      <output name="resultsResponse">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="getOutput">
+      <documentation>Get plain text output for a job (see http://www.ebi.ac.uk/Tools/webservices/services/wublast#getoutput_jobid)</documentation>
+      <soap:operation soapAction="http://www.ebi.ac.uk/WSWUBlast#getOutput"/>
+      <input name="getOutput">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </input>
+      <output name="getOutputResponse">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="getXML">
+      <documentation>Get XML output for a job (see http://www.ebi.ac.uk/Tools/webservices/services/wublast#getxml_jobid)</documentation>
+      <soap:operation soapAction="http://www.ebi.ac.uk/WSWUBlast#getXML"/>
+      <input name="getXML">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </input>
+      <output name="getXMLResponse">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="blastp">
+      <documentation>Submit a protein sequence vs. protein database search (blastp) using default parameters. See http://www.ebi.ac.uk/Tools/webservices/services/wublast#blastp_database_sequence_email</documentation>
+      <soap:operation soapAction="http://www.ebi.ac.uk/WSWUBlast#blastp"/>
+      <input name="blastp">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </input>
+      <output name="blastpResponse">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="blastn">
+      <documentation>Submit a nucleotide sequence vs. nucleotide database search (blastn) using default parameters. See http://www.ebi.ac.uk/Tools/webservices/services/wublast#blastn_database_sequence_email</documentation>
+      <soap:operation soapAction="http://www.ebi.ac.uk/WSWUBlast#blastn"/>
+      <input name="blastn">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </input>
+      <output name="blastnResponse">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="polljob">
+      <documentation>Deprecated (see http://www.ebi.ac.uk/Tools/webservices/services/wublast#polljob_jobid_outformat)</documentation>
+      <soap:operation soapAction="http://www.ebi.ac.uk/WSWUBlast#polljob"/>
+      <input name="polljobRequest">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </input>
+      <output name="polljobResponse">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="doWUBlast">
+      <documentation>Deprecated (see http://www.ebi.ac.uk/Tools/webservices/services/wublast#dowublast_params_content)</documentation>
+      <soap:operation soapAction="http://www.ebi.ac.uk/WSWUBlast#doWUBlast"/>
+      <input name="doWUBlastRequest">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </input>
+      <output name="doWUBlastResponse">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSWUBlast" use="encoded"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="WSWUBlastService">
+	<documentation>WSWUBlast: sequence similarity searches using WU-BLAST (see http://www.ebi.ac.uk/Tools/webservices/services/wublast).
+	
+	Note: this RPC/encoded SOAP service was decommissioned on Monday 28th March 2011, see http://www.ebi.ac.uk/Tools/webservices/services/wublast for details of alternative REST and document/literal SOAP services.</documentation>
+    <port name="WSWUBlast" binding="tns:WSWUBlastSoapBinding">
+      <soap:address location="http://www.bioinfo-user.org.uk/projects/webservices/embl-ebi/dispatcher/WSWUBlast.php"/>
+    </port>
+  </service>
+</definitions>

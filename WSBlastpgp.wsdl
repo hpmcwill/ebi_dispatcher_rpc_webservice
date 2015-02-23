@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Revision: $Id: WSBlastpgp.wsdl,v 1.6 2011/03/28 15:57:22 hpm Exp $ -->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://www.ebi.ac.uk/WSBlastpgp"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" name="WSBlastpgp"
+	targetNamespace="http://www.ebi.ac.uk/WSBlastpgp">
+	<documentation>WSBlastpgp: PSI-BLAST and PHI-BLAST sequence similarity searches
+		(see
+		http://www.ebi.ac.uk/Tools/webservices/services/blastpgp)</documentation>
+	<types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			xmlns:tns="http://www.ebi.ac.uk/WSBlastpgp"
+			xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+			xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+			targetNamespace="http://www.ebi.ac.uk/WSBlastpgp">
+			<xsd:complexType name="inputParams">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="en">Input parameters for tool, see
+						http://www.ebi.ac.uk/Tools/webservices/services/blastpgp#inputparams
+						for details.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:all>
+					<xsd:element name="mode" nillable="false" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Search mode to use,
+								PSI-BLAST or PHI-BLAST</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="database" nillable="false"
+						type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Sequence database to
+								search.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="matrix" nillable="true" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Scoring
+								matrix.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="exp" nillable="true" type="xsd:float">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Upper expectation
+								value limit.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="expmulti" nillable="true" type="xsd:float">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Expectation value
+								threshold for inclusion in multipass
+								model.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="filter" nillable="true" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Low complexity
+								sequence filter.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="align" nillable="true" type="xsd:int">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Alignment
+								format.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="opengap" nillable="true" type="xsd:int">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Gap creation
+								penalty.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="extendgap" nillable="true" type="xsd:int">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Gap extension
+								penalty.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="gapalign" nillable="true" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Not
+								used.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="dropoff" nillable="true" type="xsd:int">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">The amount a score must
+								drop before extension of word hits is
+								halted.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="finaldropoff" nillable="true"
+						type="xsd:int">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Dropoff value for final
+								gapped alignment.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="maxpasses" nillable="true" type="xsd:int">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Maximum number of
+								iterations to perform in iterative
+								mode.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="scores" nillable="true" type="xsd:int">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Maximum number of
+								scores to output.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="startregion" nillable="true" type="xsd:int">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Start of region in query
+								sequence to use for search.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="endregion" nillable="true" type="xsd:int">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">End of region in query
+								sequence to use for search.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="sensitivity" nillable="true"
+						type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Not
+								used.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="appxml" nillable="true" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Use XML format produced
+								by the program.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="usagemode" nillable="true"
+						type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Usage mode for
+								PHI-BLAST.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="pattern" nillable="true" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Pattern (ProSite
+								format) for PHI-BLAST.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="sequence" nillable="true" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Not
+								used.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="async" nillable="true" type="xsd:boolean">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Asynchronous
+								submission.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="email" nillable="false" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">User e-mail
+								address.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="data">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="en">Input data for tool, see
+						http://www.ebi.ac.uk/Tools/webservices/services/blastpgp#data
+						for details.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:all>
+					<xsd:element name="type" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Input data
+								type</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="content" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Input
+								data</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="ArrayOf_xsd_string">
+				<xsd:complexContent>
+					<xsd:restriction base="soapenc:Array">
+						<xsd:attribute ref="soapenc:arrayType"
+							wsdl:arrayType="xsd:string[]"/>
+					</xsd:restriction>
+				</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="WSArrayofFile">
+				<xsd:complexContent>
+					<xsd:restriction base="soapenc:Array">
+						<xsd:attribute ref="soapenc:arrayType"
+							wsdl:arrayType="tns:WSFile[]"/>
+					</xsd:restriction>
+				</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="WSArrayofData">
+				<xsd:complexContent>
+					<xsd:restriction base="soapenc:Array">
+						<xsd:attribute ref="soapenc:arrayType"
+							wsdl:arrayType="tns:data[]"/>
+					</xsd:restriction>
+				</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="WSFile">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="en">Result data type description,
+						see
+						http://www.ebi.ac.uk/Tools/webservices/services/blastpgp#wsfile
+						for details.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:all>
+					<xsd:element name="type" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Result type
+								name.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="ext" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">File extension for
+								result type</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:all>
+			</xsd:complexType>
+		</schema>
+	</types>
+	<message name="statusRequest">
+		<part name="jobid" type="xsd:string"/>
+	</message>
+	<message name="statusResponse">
+		<part name="status" type="xsd:string"/>
+	</message>
+	<message name="resultsRequest">
+		<part name="jobid" type="xsd:string">
+		</part>
+	</message>
+	<message name="resultsResponse">
+		<part name="results" type="tns:WSArrayofFile"/>
+	</message>
+	<message name="pollRequest">
+		<part name="jobid" type="xsd:string"/>
+		<part name="type" type="xsd:string"/>
+	</message>
+	<message name="pollResponse">
+		<part name="output" type="xsd:base64Binary"/>
+	</message>
+	<message name="getIdsRequest">
+		<part name="jobid" type="xsd:string"/>
+	</message>
+	<message name="getIdsResponse">
+		<part name="result" type="tns:ArrayOf_xsd_string"/>
+	</message>
+	<message name="runBlastpgpRequest">
+		<part name="params" type="tns:inputParams"/>
+		<part name="content" type="tns:WSArrayofData"/>
+	</message>
+	<message name="runBlastpgpResponse">
+		<part name="jobid" type="xsd:string"/>
+	</message>
+	<portType name="WSBlastpgp">
+		<operation name="runBlastpgp" parameterOrder="params content">
+			<documentation>Submit a PSI-BLAST or PHI-BLAST analysis job (see
+				http://www.ebi.ac.uk/Tools/webservices/services/blastpgp#runblastpgp_params_content)</documentation>
+			<input name="runBlastpgpRequest" message="tns:runBlastpgpRequest"/>
+			<output name="runBlastpgpResponse" message="tns:runBlastpgpResponse"/>
+		</operation>
+		<operation name="checkStatus" parameterOrder="jobid">
+			<documentation>Get the status of a submited job (see
+				http://www.ebi.ac.uk/Tools/webservices/services/blastpgp#checkstatus_jobid)</documentation>
+			<input name="statusRequest" message="tns:statusRequest"/>
+			<output name="statusResponse" message="tns:statusResponse"/>
+		</operation>
+		<operation name="poll" parameterOrder="jobid type">
+			<documentation>Get the results of a job (see
+				http://www.ebi.ac.uk/Tools/webservices/services/blastpgp#poll_jobid_type)</documentation>
+			<input name="pollRequest" message="tns:pollRequest"/>
+			<output name="pollResponse" message="tns:pollResponse"/>
+		</operation>
+		<operation name="getResults" parameterOrder="jobid">
+			<documentation>Get the available result types for a completed job (see
+				http://www.ebi.ac.uk/Tools/webservices/services/blastpgp#getresults_jobid)</documentation>
+			<input name="resultsRequest" message="tns:resultsRequest"/>
+			<output name="resultsResponse" message="tns:resultsResponse"/>
+		</operation>
+		<operation name="getIds" parameterOrder="jobid">
+			<documentation>Get the hit identifiers from the analysis result (see
+				http://www.ebi.ac.uk/Tools/webservices/services/blastpgp#getids_jobid)</documentation>
+			<input name="getIdsRequest" message="tns:getIdsRequest"/>
+			<output name="getIdsResponse" message="tns:getIdsResponse"/>
+		</operation>
+	</portType>
+	<binding name="WSBlastpgpSoapBinding" type="tns:WSBlastpgp">
+		<soap:binding style="rpc"
+			transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="poll">
+			<documentation>Get the results of a job (see
+				http://www.ebi.ac.uk/Tools/webservices/services/blastpgp#poll_jobid_type)</documentation>
+			<soap:operation soapAction="http://www.ebi.ac.uk/WSBlastpgp#poll"/>
+			<input name="pollRequest">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSBlastpgp" use="encoded"/>
+			</input>
+			<output name="pollResponse">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSBlastpgp" use="encoded"/>
+			</output>
+		</operation>
+		<operation name="runBlastpgp">
+			<documentation>Submit a PSI-BLAST or PHI-BLAST analysis job (see
+				http://www.ebi.ac.uk/Tools/webservices/services/blastpgp#runblastpgp_params_content)</documentation>
+			<soap:operation
+				soapAction="http://www.ebi.ac.uk/WSBlastpgp#runBlastpgp"/>
+			<input name="runBlastpgpRequest">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSBlastpgp" use="encoded"/>
+			</input>
+			<output name="runBlastpgpResponse">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSBlastpgp" use="encoded"/>
+			</output>
+		</operation>
+		<operation name="getIds">
+			<documentation>Get the hit identifiers from the analysis result (see
+				http://www.ebi.ac.uk/Tools/webservices/services/blastpgp#getids_jobid)</documentation>
+			<soap:operation soapAction="http://www.ebi.ac.uk/WSBlastpgp#getIds"/>
+			<input name="getIdsRequest">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSBlastpgp" use="encoded"/>
+			</input>
+			<output name="getIdsResponse">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSBlastpgp" use="encoded"/>
+			</output>
+		</operation>
+		<operation name="checkStatus">
+			<documentation>Get the status of a submited job (see
+				http://www.ebi.ac.uk/Tools/webservices/services/blastpgp#checkstatus_jobid)</documentation>
+			<soap:operation
+				soapAction="http://www.ebi.ac.uk/WSBlastpgp#checkStatus"/>
+			<input name="statusRequest">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSBlastpgp" use="encoded"/>
+			</input>
+			<output name="statusResponse">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSBlastpgp" use="encoded"/>
+			</output>
+		</operation>
+		<operation name="getResults">
+			<documentation>Get the available result types for a completed job (see
+				http://www.ebi.ac.uk/Tools/webservices/services/blastpgp#getresults_jobid)</documentation>
+			<soap:operation
+				soapAction="http://www.ebi.ac.uk/WSBlastpgp#getResults"/>
+			<input name="resultsRequest">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSBlastpgp" use="encoded"/>
+			</input>
+			<output name="resultsResponse">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSBlastpgp" use="encoded"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="WSBlastpgpService">
+		<documentation>WSBlastpgp: PSI-BLAST and PHI-BLAST sequence similarity searches	(see http://www.ebi.ac.uk/Tools/webservices/services/blastpgp).
+
+		Note: this RPC/encoded SOAP service was decommissioned on Monday 28th March 2011, see http://www.ebi.ac.uk/Tools/webservices/services/blastpgp for details of alternative REST and document/literal SOAP services.
+		</documentation>
+		<port name="WSBlastpgp" binding="tns:WSBlastpgpSoapBinding">
+			<soap:address
+				location="http://www.ebi.ac.uk/Tools/es/ws-servers/WSBlastpgp"/>
+		</port>
+	</service>
+</definitions>

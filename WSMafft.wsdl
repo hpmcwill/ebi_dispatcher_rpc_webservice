@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Revision: $Id: WSMafft.wsdl,v 1.7 2011/03/28 15:57:22 hpm Exp $ -->
+<definitions name="WSMafft" targetNamespace="http://www.ebi.ac.uk/WSMafft"
+	xmlns="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:tns="http://www.ebi.ac.uk/WSMafft"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+	
+	<documentation> Documentation for this service can be found at
+		http://www.ebi.ac.uk/Tools/webservices/index.html
+		Revision:$Id </documentation>
+	
+	<types>
+		<schema targetNamespace="http://www.ebi.ac.uk/WSMafft"
+			xmlns="http://www.w3.org/2001/XMLSchema"
+			xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+			xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+			
+			<xsd:complexType name="inputParams">
+				<xsd:all>
+					<xsd:element name="matrix" type="xsd:string" nillable="true">
+						</xsd:element>
+					<xsd:element name="gapopen" type="xsd:float" nillable="true">
+						</xsd:element>
+					<xsd:element name="gepen" type="xsd:float" nillable="true">
+						</xsd:element>
+					<xsd:element name="retree" type="xsd:int" nillable="true">
+						</xsd:element>
+					<xsd:element name="maxiterate" type="xsd:int" nillable="true">
+						</xsd:element>
+					<xsd:element name="pair" type="xsd:string" nillable="true">
+						</xsd:element>
+					<xsd:element name="localpair" type="xsd:boolean"
+						nillable="true"></xsd:element>
+					<xsd:element name="globalpair" type="xsd:boolean"
+						nillable="true"></xsd:element>
+					<xsd:element name="genafpair" type="xsd:boolean"
+						nillable="true"></xsd:element>
+					<xsd:element name="reorder" type="xsd:boolean" nillable="true">
+						</xsd:element>
+					<xsd:element name="clustalout" type="xsd:boolean"
+						nillable="true"></xsd:element>
+					<xsd:element name="email" type="xsd:string" nillable="false">
+						</xsd:element>
+					<xsd:element name="async" type="xsd:boolean" nillable="true">
+						</xsd:element>
+				</xsd:all>
+			</xsd:complexType>
+			
+			<xsd:complexType name="data">
+				<xsd:all>
+					<xsd:element name="type" type="xsd:string"></xsd:element>
+					<xsd:element name="content" type="xsd:string"></xsd:element>
+				</xsd:all>
+			</xsd:complexType>
+			
+			<xsd:complexType name="ArrayOf_xsd_string">
+				<xsd:complexContent>
+					<xsd:restriction base="soapenc:Array">
+						<xsd:attribute ref="soapenc:arrayType"
+							wsdl:arrayType="xsd:string[]"/>
+					</xsd:restriction>
+				</xsd:complexContent>
+			</xsd:complexType>
+			
+			<xsd:complexType name="WSArrayofFile">
+				<xsd:complexContent>
+					<xsd:restriction base="soapenc:Array">
+						<xsd:attribute ref="soapenc:arrayType"
+							wsdl:arrayType="tns:WSFile[]"/>
+					</xsd:restriction>
+				</xsd:complexContent>
+			</xsd:complexType>
+			
+			<xsd:complexType name="WSArrayofData">
+				<xsd:complexContent>
+					<xsd:restriction base="soapenc:Array">
+						<xsd:attribute ref="soapenc:arrayType"
+							wsdl:arrayType="tns:data[]"/>
+					</xsd:restriction>
+				</xsd:complexContent>
+			</xsd:complexType>
+			
+			<xsd:complexType name="WSFile">
+				<xsd:all>
+					<xsd:element name="type" type="xsd:string"/>
+					<xsd:element name="ext" type="xsd:string"/>
+				</xsd:all>
+			</xsd:complexType>
+			
+		</schema>
+	</types>
+	
+	<message name="statusRequest">
+		<part name="jobid" type="xsd:string"/>
+		<documentation> poll takes the jobid returned by the service on an asynchronous job
+			submission.</documentation>
+	</message>
+	<message name="statusResponse">
+		<part name="status" type="xsd:string"/>
+		<documentation> poll returns the status of the job or if the job is finished, the
+			result </documentation>
+	</message>
+	<message name="resultsRequest">
+		<part name="jobid" type="xsd:string">
+			<documentation> poll takes the jobid returned by the service on an asynchronous
+				job submission.</documentation>
+		</part>
+	</message>
+	<message name="resultsResponse">
+		<part name="results" type="tns:WSArrayofFile"/>
+		<documentation> poll returns the status of the job or if the job is finished, the
+			result </documentation>
+	</message>
+	<message name="pollRequest">
+		<part name="jobid" type="xsd:string"/>
+		<part name="type" type="xsd:string"/>
+		<documentation> poll takes the jobid returned by the service on an asynchronous job
+			submission.</documentation>
+	</message>
+	<message name="pollResponse">
+		<part name="result" type="xsd:base64Binary"/>
+		<documentation> poll returns the status of the job or if the job is finished, the
+			result </documentation>
+	</message>
+	
+	<message name="runMafftRequest">
+		<part name="params" type="tns:inputParams"/>
+		<part name="content" type="tns:WSArrayofData"/>
+		<documentation>
+		</documentation>
+	</message>
+	
+	<message name="runMafftResponse">
+		<part name="jobid" type="xsd:string"/>
+	</message>
+	
+	<message name="alignIdsRequest">
+		<part name="database" type="xsd:string"/>
+		<part name="sequences" type="xsd:string"/>
+		<part name="alignment" type="xsd:string"/>
+		<part name="email" type="xsd:string"/>
+	</message>
+	
+	<message name="alignIdsResponse">
+		<part name="jobid" type="xsd:string"/>
+	</message>
+	
+	<message name="alignRequest">
+		<part name="sequences" type="xsd:string"/>
+		<part name="alignment" type="xsd:string"/>
+		<part name="email" type="xsd:string"/>
+	</message>
+	
+	<message name="alignResponse">
+		<part name="jobid" type="xsd:string"/>
+	</message>
+	
+	<portType name="WSMafft">
+		
+		<operation name="runMafft" parameterOrder="params content">
+			<input name="runMafftRequest" message="tns:runMafftRequest"></input>
+			<output name="runMafftResponse" message="tns:runMafftResponse">
+				</output>
+		</operation>
+		
+		<operation name="checkStatus" parameterOrder="jobid">
+			<input name="statusRequest" message="tns:statusRequest"></input>
+			<output name="statusResponse" message="tns:statusResponse"></output>
+		</operation>
+		
+		<operation name="poll" parameterOrder="jobid type">
+			<input name="pollRequest" message="tns:pollRequest"></input>
+			<output name="pollResponse" message="tns:pollResponse"></output>
+		</operation>
+		
+		<operation name="getResults" parameterOrder="jobid">
+			<input name="resultsRequest" message="tns:resultsRequest"></input>
+			<output name="resultsResponse" message="tns:resultsResponse"></output>
+		</operation>
+		
+		<operation name="align" parameterOrder="sequences alignment email">
+			<input name="alignRequest" message="tns:alignRequest"></input>
+			<output name="alignResponse" message="tns:alignResponse"></output>
+		</operation>
+		
+		<operation name="alignIds"
+			parameterOrder="database sequences alignment email">
+			<input name="alignIdsRequest" message="tns:alignIdsRequest"></input>
+			<output name="alignIdsResponse" message="tns:alignIdsResponse">
+				</output>
+		</operation>
+		
+	</portType>
+	
+	<binding name="WSMafftSoapBinding" type="tns:WSMafft">
+		<soap:binding style="rpc"
+			transport="http://schemas.xmlsoap.org/soap/http"/>
+		
+		<operation name="poll">
+			<soap:operation soapAction="http://www.ebi.ac.uk/WSMafft#poll"/>
+			<input name="pollRequest">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSMafft" use="encoded"/>
+			</input>
+			<output name="pollResponse">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSMafft" use="encoded"/>
+			</output>
+		</operation>
+		
+		<operation name="runMafft">
+			<soap:operation soapAction="http://www.ebi.ac.uk/WSMafft#runMafft"/>
+			<input name="runMafftRequest">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSMafft" use="encoded"/>
+			</input>
+			<output name="runMafftResponse">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSMafft" use="encoded"/>
+			</output>
+		</operation>
+		
+		<operation name="checkStatus">
+			<soap:operation
+				soapAction="http://www.ebi.ac.uk/WSMafft#checkStatus"/>
+			<input name="statusRequest">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSMafft" use="encoded"/>
+			</input>
+			<output name="statusResponse">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSMafft" use="encoded"/>
+			</output>
+		</operation>
+		<operation name="getResults">
+			<soap:operation
+				soapAction="http://www.ebi.ac.uk/WSMafft#getResults"/>
+			<input name="resultsRequest">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSMafft" use="encoded"/>
+			</input>
+			<output name="resultsResponse">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSMafft" use="encoded"/>
+			</output>
+		</operation>
+		<operation name="align">
+			<soap:operation soapAction="http://www.ebi.ac.uk/WSMafft#align"/>
+			<input name="alignRequest">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSMafft" use="encoded"/>
+			</input>
+			<output name="alignResponse">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSMafft" use="encoded"/>
+			</output>
+		</operation>
+		<operation name="alignIds">
+			<soap:operation soapAction="http://www.ebi.ac.uk/WSMafft#alignIds"/>
+			<input name="alignIdsRequest">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSMafft" use="encoded"/>
+			</input>
+			<output name="alignIdsResponse">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSMafft" use="encoded"/>
+			</output>
+		</operation>
+		
+	</binding>
+	
+	<service name="WSMafftService">
+		<documentation>WSMafft: protein and nucleotide multiple sequence alignment using MAFFT (see http://www.ebi.ac.uk/Tools/webservices/services/mafft).
+
+		Note: this RPC/encoded SOAP service was decommissioned on Monday 28th March 2011, see http://www.ebi.ac.uk/Tools/webservices/services/mafft for details of alternative REST and document/literal SOAP services.
+		</documentation>
+		<port name="WSMafft" binding="tns:WSMafftSoapBinding">
+			<soap:address
+				location="http://www.ebi.ac.uk/Tools/es/ws-servers/WSMafft"/>
+		</port>
+	</service>
+	
+</definitions>

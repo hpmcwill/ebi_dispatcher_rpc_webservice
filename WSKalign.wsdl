@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Revision: $Id: WSKalign.wsdl,v 1.7 2011/03/28 15:57:22 hpm Exp $ -->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://www.ebi.ac.uk/WSKalign"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" name="WSKalign"
+	targetNamespace="http://www.ebi.ac.uk/WSKalign">
+	<documentation>WSKalign: multiple sequence alignment using the Kalign tool (see
+		http://www.ebi.ac.uk/Tools/webservices/services/kalign)</documentation>
+	<types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			xmlns:tns="http://www.ebi.ac.uk/WSKalign"
+			xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+			xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+			targetNamespace="http://www.ebi.ac.uk/WSKalign">
+			<xsd:complexType name="inputParams">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="en">Input parameters for tool, see
+						http://www.ebi.ac.uk/Tools/webservices/services/kalign#inputparams
+						for details.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:all>
+					<xsd:element name="moltype" nillable="false" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Molecule type: N for
+								nucleotide or P for protein.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="gpo" nillable="false" type="xsd:float">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Gap open
+								penalty.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="gpe" nillable="false" type="xsd:float">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Gap extension
+								penalty.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="tgpe" nillable="false" type="xsd:float">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Terminal gap
+								penalty.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="bonus" nillable="true" type="xsd:float">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Bonus score added to
+								each pair of aligned residues.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="sequence" nillable="true" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Not
+								used.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="async" nillable="true" type="xsd:boolean">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Asynchronous
+								submission.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="email" nillable="false" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">User e-mail
+								address.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="data">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="en">Input data for tool, see
+						http://www.ebi.ac.uk/Tools/webservices/services/kalign#data
+						for details.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:all>
+					<xsd:element name="type" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Input data
+								type</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="content" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Input
+								data</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="ArrayOf_xsd_string">
+				<xsd:complexContent>
+					<xsd:restriction base="soapenc:Array">
+						<xsd:attribute ref="soapenc:arrayType"
+							wsdl:arrayType="xsd:string[]"/>
+					</xsd:restriction>
+				</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="WSArrayofFile">
+				<xsd:complexContent>
+					<xsd:restriction base="soapenc:Array">
+						<xsd:attribute ref="soapenc:arrayType"
+							wsdl:arrayType="tns:WSFile[]"/>
+					</xsd:restriction>
+				</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="WSArrayofData">
+				<xsd:complexContent>
+					<xsd:restriction base="soapenc:Array">
+						<xsd:attribute ref="soapenc:arrayType"
+							wsdl:arrayType="tns:data[]"/>
+					</xsd:restriction>
+				</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="WSFile">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="en">Result data type description,
+						see
+						http://www.ebi.ac.uk/Tools/webservices/services/kalign#wsfile
+						for details.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:all>
+					<xsd:element name="type" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Result type
+								name.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="ext" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">File extension for
+								result type</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:all>
+			</xsd:complexType>
+		</schema>
+	</types>
+	<message name="statusRequest">
+		<part name="jobid" type="xsd:string"/>
+	</message>
+	<message name="statusResponse">
+		<part name="status" type="xsd:string"/>
+	</message>
+	<message name="resultsRequest">
+		<part name="jobid" type="xsd:string"/>
+	</message>
+	<message name="resultsResponse">
+		<part name="results" type="tns:WSArrayofFile"/>
+	</message>
+	<message name="pollRequest">
+		<part name="jobid" type="xsd:string"/>
+		<part name="type" type="xsd:string"/>
+	</message>
+	<message name="pollResponse">
+		<part name="output" type="xsd:base64Binary"/>
+	</message>
+	<message name="runKalignRequest">
+		<part name="params" type="tns:inputParams"/>
+		<part name="content" type="tns:WSArrayofData"/>
+	</message>
+	<message name="runKalignResponse">
+		<part name="jobid" type="xsd:string"/>
+	</message>
+	<portType name="WSKalign">
+		<operation name="runKalign" parameterOrder="params content">
+			<documentation>Submit a Kalign analysis job (see
+				http://www.ebi.ac.uk/Tools/webservices/services/kalign#runkalign_params_content)</documentation>
+			<input name="runKalignRequest" message="tns:runKalignRequest"/>
+			<output name="runKalignResponse" message="tns:runKalignResponse"/>
+		</operation>
+		<operation name="checkStatus" parameterOrder="jobid">
+			<documentation>Get the status of a submited job (see
+				http://www.ebi.ac.uk/Tools/webservices/services/kalign#checkstatus_jobid)</documentation>
+			<input name="statusRequest" message="tns:statusRequest"/>
+			<output name="statusResponse" message="tns:statusResponse"/>
+		</operation>
+		<operation name="poll" parameterOrder="jobid type">
+			<documentation>Get the results of a job (see
+				http://www.ebi.ac.uk/Tools/webservices/services/kalign#poll_jobid_type)</documentation>
+			<input name="pollRequest" message="tns:pollRequest"/>
+			<output name="pollResponse" message="tns:pollResponse"/>
+		</operation>
+		<operation name="getResults" parameterOrder="jobid">
+			<documentation>Get the available result types for a completed job (see
+				http://www.ebi.ac.uk/Tools/webservices/services/kalign#getresults_jobid)</documentation>
+			<input name="resultsRequest" message="tns:resultsRequest"/>
+			<output name="resultsResponse" message="tns:resultsResponse"/>
+		</operation>
+	</portType>
+	<binding name="WSKalignSoapBinding" type="tns:WSKalign">
+		<soap:binding style="rpc"
+			transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="poll">
+			<documentation>Get the results of a job (see
+				http://www.ebi.ac.uk/Tools/webservices/services/kalign#poll_jobid_type)</documentation>
+			<soap:operation soapAction="http://www.ebi.ac.uk/WSKalign#poll"/>
+			<input name="pollRequest">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSKalign" use="encoded"/>
+			</input>
+			<output name="pollResponse">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSKalign" use="encoded"/>
+			</output>
+		</operation>
+		<operation name="runKalign">
+			<documentation>Submit a Kalign analysis job (see
+				http://www.ebi.ac.uk/Tools/webservices/services/kalign#runkalign_params_content)</documentation>
+			<soap:operation
+				soapAction="http://www.ebi.ac.uk/WSKalign#runKalign"/>
+			<input name="runKalignRequest">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSKalign" use="encoded"/>
+			</input>
+			<output name="runKalignResponse">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSKalign" use="encoded"/>
+			</output>
+		</operation>
+		<operation name="checkStatus">
+			<documentation>Get the status of a submited job (see
+				http://www.ebi.ac.uk/Tools/webservices/services/kalign#checkstatus_jobid)</documentation>
+			<soap:operation
+				soapAction="http://www.ebi.ac.uk/WSKalign#checkStatus"/>
+			<input name="statusRequest">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSKalign" use="encoded"/>
+			</input>
+			<output name="statusResponse">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSKalign" use="encoded"/>
+			</output>
+		</operation>
+		<operation name="getResults">
+			<documentation>Get the available result types for a completed job (see
+				http://www.ebi.ac.uk/Tools/webservices/services/kalign#getresults_jobid)</documentation>
+			<soap:operation
+				soapAction="http://www.ebi.ac.uk/WSKalign#getResults"/>
+			<input name="resultsRequest">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSKalign" use="encoded"/>
+			</input>
+			<output name="resultsResponse">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSKalign" use="encoded"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="WSKalignService">
+		<documentation>WSKalign: protein and nucleotide multiple sequence alignment using Kalign (see http://www.ebi.ac.uk/Tools/webservices/services/kalign).
+
+		Note: this RPC/encoded SOAP service was decommissioned on Monday 28th March 2011, see http://www.ebi.ac.uk/Tools/webservices/services/kalign for details of alternative REST and document/literal SOAP services.
+		</documentation>
+		<port name="WSKalign" binding="tns:WSKalignSoapBinding">
+			<soap:address
+				location="http://www.ebi.ac.uk/Tools/es/ws-servers/WSKalign"/>
+		</port>
+	</service>
+</definitions>

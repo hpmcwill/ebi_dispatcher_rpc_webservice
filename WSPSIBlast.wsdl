@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Revision: $Id: WSPSIBlast.wsdl,v 1.8 2011/03/28 15:57:22 hpm Exp $ -->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.ebi.ac.uk/WSPSIBlast" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" name="WSPSIBlast" targetNamespace="http://www.ebi.ac.uk/WSPSIBlast">
+  <documentation>WSPSIBlast: Position Specific Iterative (PSI) BLAST to find distantly related protein sequences (see http://www.ebi.ac.uk/Tools/webservices/services/psiblast).</documentation>
+  <types>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.ebi.ac.uk/WSPSIBlast" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://www.ebi.ac.uk/WSPSIBlast">
+      <xsd:complexType name="inputParams">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">Input parameters for tool.
+See http://www.ebi.ac.uk/Tools/webservices/services/psiblast#inputparams for details</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element name="database" nillable="false" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Subject database to be used.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="matrix" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Scoring matrix.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="exp" nillable="true" type="xsd:float">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Expected value</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="filter" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Low complexity filter</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="expmulti" nillable="true" type="xsd:float">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">PSI-BLAST threshold for selecting hits in next iteration</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="dropoff" nillable="true" type="xsd:int">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Dropoff score</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="finaldropoff" nillable="true" type="xsd:int">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Final dropoff score</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="align" nillable="true" type="xsd:int">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Maximum number of alignments to output.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="opengap" nillable="true" type="xsd:int">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Gap creation penalty.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="extendgap" nillable="true" type="xsd:int">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Gap extension penalty.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="scores" nillable="true" type="xsd:int">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Maximum number of scores to output.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="sequence" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Input query sequence</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="async" nillable="true" type="xsd:boolean">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Asynchronous submission.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="email" nillable="false" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">User email address.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="data">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">Input data for tool.
+See http://www.ebi.ac.uk/Tools/webservices/services/psiblast#data for details
+</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element name="type" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Input data type</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="content" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Input data content of query sequences.
+See http://www.ebi.ac.uk/Tools/webservices/services/psiblast#data for details
+</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="preselseq">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">File containing pre-selected sequences </xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element name="type" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Data type</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="content" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Input data content of pre-selected sequences.
+See http://www.ebi.ac.uk/Tools/webservices/services/psiblast#data for details
+</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="checkpoint">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">Checkpoint file</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element name="type" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Data type</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="content" type="xsd:base64Binary">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Input data content of checkpint file.
+See http://www.ebi.ac.uk/Tools/webservices/services/psiblast#data for details
+</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOf_xsd_string">
+        <xsd:complexContent>
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:string[]"/>
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="WSArrayofFile">
+        <xsd:complexContent>
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute ref="soapenc:arrayType" wsdl:arrayType="tns:WSFile[]"/>
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="WSArrayofData">
+        <xsd:complexContent>
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute ref="soapenc:arrayType" wsdl:arrayType="tns:data[]"/>
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="WSFile">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">Result data type description.
+See http://www.ebi.ac.uk/Tools/webservices/services/psiblast#wsfile for details. </xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element name="type" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Result type name.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ext" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">File extension for result type</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:all>
+      </xsd:complexType>
+    </schema>
+  </types>
+  <message name="statusRequest">
+    <part name="jobid" type="xsd:string"/>
+  </message>
+  <message name="statusResponse">
+    <part name="status" type="xsd:string"/>
+  </message>
+  <message name="resultsRequest">
+    <part name="jobid" type="xsd:string">
+</part>
+  </message>
+  <message name="resultsResponse">
+    <part name="results" type="tns:WSArrayofFile"/>
+  </message>
+  <message name="pollRequest">
+    <part name="jobid" type="xsd:string"/>
+    <part name="type" type="xsd:string"/>
+  </message>
+  <message name="pollResponse">
+    <part name="output" type="xsd:base64Binary"/>
+  </message>
+  <message name="getIdsRequest">
+    <part name="jobid" type="xsd:string"/>
+  </message>
+  <message name="getIdsResponse">
+    <part name="result" type="tns:ArrayOf_xsd_string"/>
+  </message>
+  <message name="runPSIBlastRequest">
+    <part name="params" type="tns:inputParams"/>
+    <part name="preselseq" type="tns:preselseq"/>
+    <part name="checkpoint" type="tns:checkpoint"/>
+    <part name="content" type="tns:WSArrayofData"/>
+  </message>
+  <message name="runPSIBlastResponse">
+    <part name="jobid" type="xsd:string"/>
+  </message>
+  <portType name="WSPSIBlast">
+    <operation name="runPSIBlast" parameterOrder="params content preselseq checkpoint">
+      <documentation>Submit a PSI-BLAST analysis job
+(see http://www.ebi.ac.uk/Tools/webservices/services/psiblast#runpsiblast_params_content_preselseqcontent_checkpointcontent) </documentation>
+      <input name="runPSIBlastRequest" message="tns:runPSIBlastRequest"/>
+      <output name="runPSIBlastResponse" message="tns:runPSIBlastResponse"/>
+    </operation>
+    <operation name="checkStatus" parameterOrder="jobid">
+      <documentation>Get the status of a submited job (see http://www.ebi.ac.uk/Tools/webservices/services/psiblast#checkstatus_jobid)</documentation>
+      <input name="statusRequest" message="tns:statusRequest"/>
+      <output name="statusResponse" message="tns:statusResponse"/>
+    </operation>
+    <operation name="poll" parameterOrder="jobid type">
+      <documentation>Wait until the job has finished and get the specified type of result data.
+(see http://www.ebi.ac.uk/Tools/webservices/services/psiblast#poll_jobid_type)</documentation>
+      <input name="pollRequest" message="tns:pollRequest"/>
+      <output name="pollResponse" message="tns:pollResponse"/>
+    </operation>
+    <operation name="getResults" parameterOrder="jobid">
+      <documentation>Get the available result types for a completed job
+(see http://www.ebi.ac.uk/Tools/webservices/services/psiblast#getresults_jobid)</documentation>
+      <input name="resultsRequest" message="tns:resultsRequest"/>
+      <output name="resultsResponse" message="tns:resultsResponse"/>
+    </operation>
+  </portType>
+  <binding name="WSPSIBlastSoapBinding" type="tns:WSPSIBlast">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="poll">
+      <soap:operation soapAction="http://www.ebi.ac.uk/WSPSIBlast#poll"/>
+      <input name="pollRequest">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSPSIBlast" use="encoded"/>
+      </input>
+      <output name="pollResponse">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSPSIBlast" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="runPSIBlast">
+      <soap:operation soapAction="http://www.ebi.ac.uk/WSPSIBlast#runPSIBlast"/>
+      <input name="runPSIBlastRequest">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSPSIBlast" use="encoded"/>
+      </input>
+      <output name="runPSIBlastResponse">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSPSIBlast" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="checkStatus">
+      <soap:operation soapAction="http://www.ebi.ac.uk/WSPSIBlast#checkStatus"/>
+      <input name="statusRequest">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSPSIBlast" use="encoded"/>
+      </input>
+      <output name="statusResponse">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSPSIBlast" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="getResults">
+      <soap:operation soapAction="http://www.ebi.ac.uk/WSPSIBlast#getResults"/>
+      <input name="resultsRequest">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSPSIBlast" use="encoded"/>
+      </input>
+      <output name="resultsResponse">
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSPSIBlast" use="encoded"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="WSPSIBlastService">
+    <documentation>WSPSIBlast: Position Specific Iterative (PSI) BLAST finds distantly related protein sequences (see http://www.ebi.ac.uk/Tools/webservices/services/psiblast).
+
+	Note: this RPC/encoded SOAP service was decommissioned on Monday 28th March 2011, see http://www.ebi.ac.uk/Tools/webservices/services/psiblast for details of alternative REST and document/literal SOAP services.
+    </documentation>
+    <port name="WSPSIBlast" binding="tns:WSPSIBlastSoapBinding">
+      <soap:address location="http://www.ebi.ac.uk/Tools/es/ws-servers/WSPSIBlast"/>
+    </port>
+  </service>
+</definitions>

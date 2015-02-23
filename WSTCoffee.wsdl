@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Revision: $Id: WSTCoffee.wsdl,v 1.5 2011/03/28 15:57:22 hpm Exp $ -->
+<definitions name="WSTCoffee"
+	targetNamespace="http://www.ebi.ac.uk/WSTCoffee"
+	xmlns="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://www.ebi.ac.uk/WSTCoffee"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+	
+	<documentation> 
+	Documentation for this service can be found at http://www.ebi.ac.uk/Tools/webservices
+	</documentation>
+	
+	<types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://www.ebi.ac.uk/WSTCoffee"
+			xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+         		xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+
+                    <xsd:complexType name="inputParams">
+				<xsd:all>
+				<xsd:element name="email" type="xsd:string" nillable="false"></xsd:element>
+				<xsd:element name="async" type="xsd:boolean" nillable="true"></xsd:element>
+				<xsd:element name="alignment" type="xsd:string" nillable="true"></xsd:element>
+				<xsd:element name="output" type="xsd:string" nillable="true"></xsd:element>
+				<xsd:element name="tossgaps" type="xsd:boolean" nillable="true"></xsd:element>
+				<xsd:element name="gapdist" type="xsd:int" nillable="true"></xsd:element>
+    				<xsd:element name="topdiags" type="xsd:int" nillable="true"></xsd:element>
+    				<xsd:element name="pairgap" type="xsd:int" nillable="true"></xsd:element>
+				<xsd:element name="ktup" type="xsd:int" nillable="true"></xsd:element>
+				<xsd:element name="window" type="xsd:int" nillable="true"></xsd:element>
+				<xsd:element name="gapopen" type="xsd:int" nillable="true"></xsd:element>
+				<xsd:element name="gapclose" type="xsd:int" nillable="true"></xsd:element>
+				<xsd:element name="gapext" type="xsd:float" nillable="true"></xsd:element>
+				<xsd:element name="outputtree" type="xsd:string" nillable="true"></xsd:element>
+				<xsd:element name="matrix" type="xsd:string" nillable="true"></xsd:element>
+				<xsd:element name="cpu" type="xsd:string" nillable="true"></xsd:element>
+				<xsd:element name="kimura" type="xsd:boolean" nillable="true"></xsd:element>
+				<xsd:element name="tree" type="xsd:boolean" nillable="true"></xsd:element>
+				<xsd:element name="align" type="xsd:boolean" nillable="true"></xsd:element>
+				<xsd:element name="quicktree" type="xsd:boolean" nillable="true"></xsd:element>
+				<xsd:element name="scores" type="xsd:string" nillable="true"></xsd:element>
+				<xsd:element name="outorder" type="xsd:string" nillable="true"></xsd:element>
+				</xsd:all>
+                    </xsd:complexType>
+<xsd:complexType name="EBIParams">
+   <xsd:all>
+    <xsd:element name="email" type="xsd:string"></xsd:element>
+    <xsd:element name="async" type="xsd:boolean"></xsd:element>
+   </xsd:all>
+  </xsd:complexType>
+
+  <xsd:complexType name="data">
+   <xsd:all>
+    <xsd:element name="type" type="xsd:string"></xsd:element>
+    <xsd:element name="content" type="xsd:string"></xsd:element>
+   </xsd:all>
+  </xsd:complexType>
+
+ <xsd:complexType name="ArrayOf_xsd_string">
+   <xsd:complexContent>
+        <xsd:restriction base="soapenc:Array">
+           <xsd:attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:string[]"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="WSArrayofFile">
+   <xsd:complexContent>
+        <xsd:restriction base="soapenc:Array">
+           <xsd:attribute ref="soapenc:arrayType" wsdl:arrayType="tns:WSFile[]"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="WSArrayofData">
+   <xsd:complexContent>
+        <xsd:restriction base="soapenc:Array">
+           <xsd:attribute ref="soapenc:arrayType" wsdl:arrayType="tns:data[]"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="WSFile">
+   <xsd:all>
+    <xsd:element name="type" type="xsd:string"/>
+    <xsd:element name="ext" type="xsd:string"/>
+   </xsd:all>
+  </xsd:complexType>
+ </schema>
+</types>
+
+<message name="statusRequest">
+ <part name="jobid" type="xsd:string"/>
+  <documentation> poll takes the jobid returned by the service on an asynchronous job submission.</documentation>
+</message>
+<message name="statusResponse">
+ <part name="status" type="xsd:string"/>
+  <documentation> poll returns the status of the job or if the job is finished, the result </documentation>
+</message>
+<message name="resultsRequest">
+ <part name="jobid" type="xsd:string">
+  <documentation> poll takes the jobid returned by the service on an asynchronous job submission.</documentation>
+ </part>
+</message>
+<message name="resultsResponse">
+ <part name="results" type="tns:WSArrayofFile"/>
+ <documentation> poll returns the status of the job or if the job is finished, the result </documentation>
+</message>
+<message name="pollRequest">
+ <part name="jobid" type="xsd:string"/>
+ <part name="type" type="xsd:string"/>
+ <documentation> poll takes the jobid returned by the service on an asynchronous job submission.</documentation>
+</message>
+<message name="pollResponse">
+ <part name="output" type="xsd:base64Binary"/>	
+ <documentation> poll returns the status of the job or if the job is finished, the result </documentation>
+</message>
+	
+<message name="runTCoffeeRequest">
+ <part name="params" type="tns:inputParams"/>
+ <part name="content" type="tns:WSArrayofData"/>       
+</message>
+	
+<message name="runTCoffeeResponse">
+ <part name="jobid" type="xsd:string"/>	
+</message>
+	
+	
+	<portType name="WSTCoffee">
+		<operation name="poll" parameterOrder="jobid type">
+			<input name="pollRequest" message="tns:pollRequest"></input>
+			<output name="pollResponse"  message="tns:pollResponse"></output>
+		</operation>		
+		<operation name="runTCoffee" parameterOrder="params content">
+			<input name="runTCoffeeRequest" message="tns:runTCoffeeRequest"></input>
+			<output name="runTCoffeeResponse" message="tns:runTCoffeeResponse"></output>
+		</operation>
+	    <operation name="checkStatus" parameterOrder="jobid">
+			<input name="statusRequest" message="tns:statusRequest"></input>
+			<output name="statusResponse"  message="tns:statusResponse"></output>
+		</operation>
+		<operation name="getResults" parameterOrder="jobid">
+			<input name="resultsRequest" message="tns:resultsRequest"></input>
+			<output name="resultsResponse"  message="tns:resultsResponse"></output>
+		</operation>
+	</portType>
+	
+	<binding name="WSTCoffeeSoapBinding" type="tns:WSTCoffee">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="poll">
+			<soap:operation soapAction="http://www.ebi.ac.uk/WSTCoffee#poll"/>
+			<input name="pollRequest">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSTCoffee"
+					use="encoded"/>
+			</input>
+			<output name="pollResponse">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSTCoffee"
+					use="encoded"/>
+			</output>
+		</operation>
+		
+		<operation name="runTCoffee">
+			<soap:operation soapAction="http://www.ebi.ac.uk/WSTCoffee#runTCoffee"/>
+			<input name="runTCoffeeRequest">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSTCoffee"
+					use="encoded"/>
+			</input>
+			<output name="runTCoffeeResponse">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSTCoffee"
+					use="encoded"/>
+			</output>
+		</operation>
+
+		<operation name="checkStatus">
+			<soap:operation soapAction="http://www.ebi.ac.uk/WSTCoffee#checkStatus"/>
+			<input name="statusRequest">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSTCoffee"
+					use="encoded"/>
+			</input>
+			<output name="statusResponse">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSTCoffee"
+					use="encoded"/>
+			</output>
+		</operation>
+		<operation name="getResults">
+			<soap:operation soapAction="http://www.ebi.ac.uk/WSTCoffee#getResults"/>
+			<input name="resultsRequest">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSTCoffee"
+					use="encoded"/>
+			</input>
+			<output name="resultsResponse">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSTCoffee"
+					use="encoded"/>
+			</output>
+		</operation>
+	</binding>
+	
+	<service name="WSTCoffeeService">
+		<documentation>WSTCoffee: protein and nucleotide multiple sequence alignment using T-COFFEE (see http://www.ebi.ac.uk/Tools/webservices/services/tcoffee).
+
+		Note: this RPC/encoded SOAP service was decommissioned on Monday 28th March 2011, see http://www.ebi.ac.uk/Tools/webservices/services/tcoffee for details of alternative REST and document/literal SOAP services.
+		</documentation>
+		<port name="WSTCoffee" binding="tns:WSTCoffeeSoapBinding">
+			<soap:address location="http://www.ebi.ac.uk/Tools/es/ws-servers/WSTCoffee"/>
+		</port>
+	</service>
+</definitions>
+

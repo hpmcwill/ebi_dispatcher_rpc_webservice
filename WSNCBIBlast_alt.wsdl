@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Revision: $Id: WSNCBIBlast.wsdl,v 1.9 2011/03/28 15:57:22 hpm Exp $ -->
+<definitions name="WSNCBIBlast"
+	targetNamespace="http://www.ebi.ac.uk/WSNCBIBlast"
+	xmlns="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://www.ebi.ac.uk/WSNCBIBlast"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+	<documentation>WSNCBIBlast: NCBI BLAST sequence similarity searches (see http://www.ebi.ac.uk/Tools/webservices/services/ncbiblast)</documentation>
+	<types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://www.ebi.ac.uk/WSNCBIBlast"
+			xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+			xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+			<xsd:complexType name="inputParams">
+				<xsd:annotation>
+					<xsd:documentation>Input parameters for tool, see http://www.ebi.ac.uk/Tools/webservices/services/ncbiblast#inputparams for details.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:all>
+					<xsd:element name="program" nillable="false" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation>NCBI BLAST program to use for search.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="database" nillable="false" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation>Sequence database to search.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="matrix" nillable="true" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation>scoring matrix.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="exp" nillable="true" type="xsd:float">
+						<xsd:annotation>
+							<xsd:documentation>E-value threshold.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="filter" nillable="true" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation>Low complexity sequence filter for input sequence.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="numal" nillable="true" type="xsd:int">
+						<xsd:annotation>
+							<xsd:documentation>Maximum number of alignments to output.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="scores" nillable="true" type="xsd:int">
+						<xsd:annotation>
+							<xsd:documentation>Maximum number of scores to output.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="align" nillable="true" type="xsd:int">
+						<xsd:annotation>
+							<xsd:documentation>Alignment format for output.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="gapalign" nillable="true" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation>Gapped alignment.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="match" nillable="true" type="xsd:int">
+						<xsd:annotation>
+							<xsd:documentation>Score for a match in nucleotide alignments.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="mismatch" nillable="true" type="xsd:int">
+						<xsd:annotation>
+							<xsd:documentation>Score for a missmatch in nucleotide alignments.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="extendgap" nillable="true" type="xsd:int">
+						<xsd:annotation>
+							<xsd:documentation>Gap extension penalty.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="opengap" nillable="true" type="xsd:int">
+						<xsd:annotation>
+							<xsd:documentation>Gap creation penalty.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="dropoff" nillable="true" type="xsd:int">
+						<xsd:annotation>
+							<xsd:documentation>The amount a score must drop before extension of word hits is halted.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="async" nillable="true" type="xsd:boolean">
+						<xsd:annotation>
+							<xsd:documentation>Asynchronous submission.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="email" nillable="false" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation>User e-mail address.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="data">
+				<xsd:annotation>
+					<xsd:documentation>Input data for tool, see http://www.ebi.ac.uk/Tools/webservices/services/ncbiblast#data for details.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:all>
+					<xsd:element name="type" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation>Input data type.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="content" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation>Input data.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="ArrayOf_xsd_string">
+				<xsd:complexContent>
+					<xsd:restriction base="soapenc:Array">
+						<xsd:attribute ref="soapenc:arrayType"
+							wsdl:arrayType="xsd:string[]" />
+					</xsd:restriction>
+				</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="WSArrayofFile">
+				<xsd:complexContent>
+					<xsd:restriction base="soapenc:Array">
+						<xsd:attribute ref="soapenc:arrayType"
+							wsdl:arrayType="tns:WSFile[]" />
+					</xsd:restriction>
+				</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="WSArrayofData">
+				<xsd:complexContent>
+					<xsd:restriction base="soapenc:Array">
+						<xsd:attribute ref="soapenc:arrayType"
+							wsdl:arrayType="tns:data[]" />
+					</xsd:restriction>
+				</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="WSFile">
+				<xsd:annotation>
+					<xsd:documentation>Result data type description, see http://www.ebi.ac.uk/Tools/webservices/services/ncbiblast#wsfile for details.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:all>
+					<xsd:element name="type" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation>Result type name.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="ext" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation>File extension for result type.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:all>
+			</xsd:complexType>
+		</schema>
+	</types>
+	<message name="statusRequest">
+		<part name="jobid" type="xsd:string" />
+	</message>
+	<message name="statusResponse">
+		<part name="status" type="xsd:string" />
+	</message>
+	<message name="resultsRequest">
+		<part name="jobid" type="xsd:string" />
+	</message>
+	<message name="resultsResponse">
+		<part name="result" type="tns:WSArrayofFile" />
+	</message>
+	<message name="pollRequest">
+		<part name="jobid" type="xsd:string" />
+		<part name="type" type="xsd:string" />
+	</message>
+	<message name="pollResponse">
+		<part name="result" type="xsd:base64Binary" />
+	</message>
+	<message name="getIdsRequest">
+		<part name="jobid" type="xsd:string" />
+	</message>
+	<message name="getIdsResponse">
+		<part name="result" type="tns:ArrayOf_xsd_string" />
+	</message>
+	<message name="runNCBIBlastRequest">
+		<part name="params" type="tns:inputParams" />
+		<part name="content" type="tns:WSArrayofData" />
+	</message>
+	<message name="runNCBIBlastResponse">
+		<part name="jobid" type="xsd:string" />
+	</message>
+	<portType name="WSNCBIBlast">
+		<operation name="runNCBIBlast"
+			parameterOrder="params content">
+			<documentation>Submit an NCBI BLAST analysis job (see http://www.ebi.ac.uk/Tools/webservices/services/ncbiblast#runncbiblast_params_content).</documentation>
+			<input name="runNCBIBlastRequest"
+				message="tns:runNCBIBlastRequest">
+			</input>
+			<output name="runNCBIBlastResponse"
+				message="tns:runNCBIBlastResponse">
+			</output>
+		</operation>
+		<operation name="checkStatus" parameterOrder="jobid">
+			<documentation>Get the status of a submitted job (see http://www.ebi.ac.uk/Tools/webservices/services/ncbiblast#checkstatus_jobid).</documentation>
+			<input name="statusRequest" message="tns:statusRequest"></input>
+			<output name="statusResponse"
+				message="tns:statusResponse">
+			</output>
+		</operation>
+		<operation name="poll" parameterOrder="jobid type">
+			<documentation>Get the results of a job (see http://www.ebi.ac.uk/Tools/webservices/services/ncbiblast#poll_jobid_type).</documentation>
+			<input name="pollRequest" message="tns:pollRequest"></input>
+			<output name="pollResponse" message="tns:pollResponse"></output>
+		</operation>
+		<operation name="getResults" parameterOrder="jobid">
+			<documentation>Get the available result types for a completed job (see http://www.ebi.ac.uk/Tools/webservices/services/ncbiblast#getResults_jobid).</documentation>
+			<input name="resultsRequest" message="tns:resultsRequest"></input>
+			<output name="resultsResponse"
+				message="tns:resultsResponse">
+			</output>
+		</operation>
+		<operation name="test" parameterOrder="jobid type">
+			<input name="pollRequest" message="tns:pollRequest"></input>
+			<output name="pollResponse" message="tns:pollResponse"></output>
+		</operation>
+		<operation name="getIds" parameterOrder="jobid">
+			<documentation>Get the hit identifiers from the analysis result (see http://www.ebi.ac.uk/Tools/webservices/services/ncbiblast#getids_jobid).</documentation>
+			<input name="getIdsRequest" message="tns:getIdsRequest"></input>
+			<output name="getIdsResponse"
+				message="tns:getIdsResponse">
+			</output>
+		</operation>
+	</portType>
+	<binding name="WSNCBIBlastSoapBinding" type="tns:WSNCBIBlast">
+		<soap:binding style="rpc"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<operation name="poll">
+			<documentation>Get the results of a job (see http://www.ebi.ac.uk/Tools/webservices/services/ncbiblast#poll_jobid_type).</documentation>
+			<soap:operation
+				soapAction="http://www.ebi.ac.uk/WSNCBIBlast#poll" />
+			<input name="pollRequest">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSNCBIBlast" use="encoded" />
+			</input>
+			<output name="pollResponse">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSNCBIBlast" use="encoded" />
+			</output>
+		</operation>
+		<operation name="runNCBIBlast">
+			<documentation>Submit an NCBI BLAST analysis job (see http://www.ebi.ac.uk/Tools/webservices/services/ncbiblast#runncbiblast_params_content).</documentation>
+			<soap:operation
+				soapAction="http://www.ebi.ac.uk/WSNCBIBlast#runNCBIBlast" />
+			<input name="runNCBIBlastRequest">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSNCBIBlast" use="encoded" />
+			</input>
+			<output name="runNCBIBlastResponse">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSNCBIBlast" use="encoded" />
+			</output>
+		</operation>
+		<operation name="test">
+			<soap:operation
+				soapAction="http://www.ebi.ac.uk/WSNCBIBlast#test" />
+			<input name="pollRequest">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSNCBIBlast" use="encoded" />
+			</input>
+			<output name="pollResponse">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSNCBIBlast" use="encoded" />
+			</output>
+		</operation>
+		<operation name="checkStatus">
+			<documentation>Get the status of a submitted job (see http://www.ebi.ac.uk/Tools/webservices/services/ncbiblast#checkstatus_jobid).</documentation>
+			<soap:operation
+				soapAction="http://www.ebi.ac.uk/WSNCBIBlast#checkStatus" />
+			<input name="statusRequest">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSNCBIBlast" use="encoded" />
+			</input>
+			<output name="statusResponse">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSNCBIBlast" use="encoded" />
+			</output>
+		</operation>
+		<operation name="getResults">
+			<documentation>Get the available result types for a completed job (see http://www.ebi.ac.uk/Tools/webservices/services/ncbiblast#getResults_jobid).</documentation>
+			<soap:operation
+				soapAction="http://www.ebi.ac.uk/WSNCBIBlast#getResults" />
+			<input name="resultsRequest">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSNCBIBlast" use="encoded" />
+			</input>
+			<output name="resultsResponse">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSNCBIBlast" use="encoded" />
+			</output>
+		</operation>
+		<operation name="getIds">
+			<documentation>Get the hit identifiers from the analysis result (see http://www.ebi.ac.uk/Tools/webservices/services/ncbiblast#getids_jobid).</documentation>
+			<soap:operation
+				soapAction="http://www.ebi.ac.uk/WSNCBIBlast#getIds" />
+			<input name="getIdsRequest">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSNCBIBlast" use="encoded" />
+			</input>
+			<output name="getIdsResponse">
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.ebi.ac.uk/WSNCBI/WSNCBIBlast" use="encoded" />
+			</output>
+		</operation>
+	</binding>
+	<service name="WSNCBIBlastService">
+		<documentation>WSNCBIBlast: NCBI BLAST sequence similarity searches (see http://www.ebi.ac.uk/Tools/webservices/services/ncbiblast).
+		
+		Note: this RPC/encoded SOAP service was decommissioned on Monday 28th March 2011, see http://www.ebi.ac.uk/Tools/webservices/services/ncbiblast for details of alternative REST and document/literal SOAP services.
+		</documentation>
+		<port name="WSNCBIBlast" binding="tns:WSNCBIBlastSoapBinding">
+			<soap:address
+				location="http://www.bioinfo-user.org.uk/projects/webservices/embl-ebi/dispatcher/WSNCBIBlast.php" />
+		</port>
+	</service>
+</definitions>

@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Revision: $Id: WSClustalW2.wsdl,v 1.6 2011/03/28 15:57:22 hpm Exp $ -->
+<definitions name="WSClustalW2"
+	targetNamespace="http://www.ebi.ac.uk/WSClustalW2"
+	xmlns="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:tns="http://www.ebi.ac.uk/WSClustalW2"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"	
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+	<documentation>WSClustalW2: multiple sequence alignment using ClustalW2. (see http://www.ebi.ac.uk/Tools/webservices/services/clustalw2)</documentation>
+	<types>
+		<schema targetNamespace="http://www.ebi.ac.uk/WSClustalW2"
+			xmlns="http://www.w3.org/2001/XMLSchema"
+			xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+			xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+			<xsd:complexType name="inputParams">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="en">Input parameters for tool, see http://www.ebi.ac.uk/Tools/webservices/services/clustalw2#inputparams for details.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:all>
+					<xsd:element name="alignment" type="xsd:string" nillable="true">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Alignment method: full or fast.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="output" type="xsd:string" nillable="true">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Alignment output format: aln1, aln2, gcg, phylip, pir or gde.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="tossgaps" type="xsd:boolean" nillable="true">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Discard gap regions when calculating tree.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="ktup" type="xsd:int" nillable="true">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Word size for pairwise alignment.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="window" type="xsd:int" nillable="true">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Window size for pairwise alignment.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="gapopen" type="xsd:int" nillable="true">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Gap open penalty for multiple alignment</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="endgaps" type="xsd:boolean" nillable="true">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Do not score end gaps.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="gapext" type="xsd:float" nillable="true">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Gap extension penalty for multiple alignment.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="gapdist" type="xsd:int" nillable="true">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Gap separation penalty.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="topdiags" type="xsd:int" nillable="true">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Top diagonals to consider for pairwise alignment.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="pairgap" type="xsd:int" nillable="true">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Gap penalty for pairwise alignment.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="outputtree" type="xsd:string" nillable="true">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Tree format: none, nj, phylip or dist.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="matrix" type="xsd:string" nillable="true">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Scoring matrix set: blosum, pam, gonnet or id.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="cpu" type="xsd:string" nillable="true">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Deprecated.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="kimura" type="xsd:boolean" nillable="true">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Use the Kimura distance correction.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="tree" type="xsd:boolean" nillable="true">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Generate phylogenetic tree.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="align" type="xsd:boolean" nillable="true">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Perform alignment.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="quicktree" type="xsd:boolean" nillable="true">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Perform 'fast' alignment.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="score" type="xsd:string" nillable="true">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Pairwise alignment score type: percent or absolute.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="iteration" type="xsd:string" nillable="true">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Iteration type: none, alignment or tree.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="clustering" type="xsd:string" nillable="true">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Tree type: nj or upgmp.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="numiter" type="xsd:int" nillable="true">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Number of iterations.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>	
+					<xsd:element name="outorder" type="xsd:string" nillable="true">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Sequence order in output alignment: aligned or input.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="async" nillable="true" type="xsd:boolean">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Asynchronous submission.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="email" nillable="false" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">User e-mail address.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="data">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="en">Input data for tool, see http://www.ebi.ac.uk/Tools/webservices/services/clustalw2#data for details.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:all>
+					<xsd:element name="type" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Input data type.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="content" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Input data.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="ArrayOf_xsd_string">
+				<xsd:complexContent>
+					<xsd:restriction base="soapenc:Array">
+						<xsd:attribute ref="soapenc:arrayType"
+							wsdl:arrayType="xsd:string[]"/>
+					</xsd:restriction>
+				</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="WSArrayofFile">
+				<xsd:complexContent>
+					<xsd:restriction base="soapenc:Array">
+						<xsd:attribute ref="soapenc:arrayType"
+							wsdl:arrayType="tns:WSFile[]"/>
+					</xsd:restriction>
+				</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="WSArrayofData">
+				<xsd:complexContent>
+					<xsd:restriction base="soapenc:Array">
+						<xsd:attribute ref="soapenc:arrayType"
+							wsdl:arrayType="tns:data[]"/>
+					</xsd:restriction>
+				</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="WSFile">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="en">Result data type description, see http://www.ebi.ac.uk/Tools/webservices/services/clustalw2#wsfile for details.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:all>
+					<xsd:element name="type" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">Result type name.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="ext" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation xml:lang="en">File extension for result type</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:all>
+			</xsd:complexType>
+		</schema>
+	</types>
+	<message name="statusRequest">
+		<part name="jobid" type="xsd:string"/>
+	</message>
+	<message name="statusResponse">
+		<part name="status" type="xsd:string"/>
+	</message>
+	<message name="resultsRequest">
+		<part name="jobid" type="xsd:string" />
+	</message>
+	<message name="resultsResponse">
+		<part name="result" type="tns:WSArrayofFile"/>
+	</message>
+	<message name="pollRequest">
+		<part name="jobid" type="xsd:string"/>
+		<part name="type" type="xsd:string"/>
+	</message>
+	<message name="pollResponse">
+		<part name="result" type="xsd:base64Binary"/>	
+	</message>
+	<message name="runClustalW2Request">
+		<part name="params" type="tns:inputParams"/>
+		<part name="content" type="tns:WSArrayofData"/>
+	</message>
+	<message name="runClustalW2Response">
+		<part name="jobid" type="xsd:string"/>
+	</message>
+	<portType name="WSClustalW2">
+		<operation name="runClustalW2" parameterOrder="params content">
+			<documentation>Submit a ClustalW2 analysis job (see http://www.ebi.ac.uk/Tools/webservices/services/clustalw2#runclustalw2_params_content)</documentation>
+			<input name="runClustalW2Request" message="tns:runClustalW2Request" />
+			<output name="runClustalW2Response" message="tns:runClustalW2Response" />
+		</operation>
+		<operation name="checkStatus" parameterOrder="jobid">
+			<documentation>Get the status of a submited job (see http://www.ebi.ac.uk/Tools/webservices/services/clustalw2#checkstatus_jobid)</documentation>
+			<input name="statusRequest" message="tns:statusRequest" />
+			<output name="statusResponse"  message="tns:statusResponse" />
+		</operation>
+		<operation name="poll" parameterOrder="jobid type">
+			<documentation>Get the results of a job (see http://www.ebi.ac.uk/Tools/webservices/services/clustalw2#poll_jobid_type)</documentation>
+			<input name="pollRequest" message="tns:pollRequest" />
+			<output name="pollResponse"  message="tns:pollResponse" />
+		</operation>
+		<operation name="getResults" parameterOrder="jobid">
+			<documentation>Get the available result types for a completed job (see http://www.ebi.ac.uk/Tools/webservices/services/clustalw2#getresults_jobid)</documentation>
+			<input name="resultsRequest" message="tns:resultsRequest" />
+			<output name="resultsResponse"  message="tns:resultsResponse" />
+		</operation>
+	</portType>
+	<binding name="WSClustalW2SoapBinding" type="tns:WSClustalW2">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="poll">
+			<documentation>Get the results of a job (see http://www.ebi.ac.uk/Tools/webservices/services/clustalw2#poll_jobid_type)</documentation>
+			<soap:operation soapAction="http://www.ebi.ac.uk/WSClustalW2#poll"/>
+			<input name="pollRequest">
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSClustalW2" use="encoded"/>
+			</input>
+			<output name="pollResponse">
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSClustalW2" use="encoded"/>
+			</output>
+		</operation>
+		<operation name="runClustalW2">
+			<documentation>Submit a ClustalW2 analysis job (see http://www.ebi.ac.uk/Tools/webservices/services/clustalw2#runclustalw2_params_content)</documentation>
+			<soap:operation soapAction="http://www.ebi.ac.uk/WSClustalW2#runClustalW2"/>
+			<input name="runClustalW2Request">
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSClustalW2" use="encoded"/>			
+			</input>
+			<output name="runClustalW2Response">
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSClustalW2" use="encoded"/>
+			</output>
+		</operation>
+		<operation name="checkStatus">
+			<documentation>Get the status of a submited job (see http://www.ebi.ac.uk/Tools/webservices/services/clustalw2#checkstatus_jobid)</documentation>
+			<soap:operation soapAction="http://www.ebi.ac.uk/WSClustalW2#checkStatus"/>
+			<input name="statusRequest">
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSClustalW2" use="encoded"/>
+			</input>
+			<output name="statusResponse">
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSClustalW2" use="encoded"/>
+			</output>
+		</operation>
+		<operation name="getResults">
+			<documentation>Get the available result types for a completed job (see http://www.ebi.ac.uk/Tools/webservices/services/clustalw2#getresults_jobid)</documentation>
+			<soap:operation soapAction="http://www.ebi.ac.uk/WSClustalW2#getResults"/>
+			<input name="resultsRequest">
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSClustalW2" use="encoded"/>
+			</input>
+			<output name="resultsResponse">
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.ebi.ac.uk/WSClustalW2" use="encoded"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="WSClustalW2Service">
+		<documentation>WSClustalW2: protein and nucleotide multiple sequence alignment using ClustalW2 (see http://www.ebi.ac.uk/Tools/webservices/services/clustalw2).
+
+		Note: this RPC/encoded SOAP service was decommissioned on Monday 28th March 2011, see http://www.ebi.ac.uk/Tools/webservices/services/clustalw2 for details of alternative REST and document/literal SOAP services.
+		</documentation>
+		<port name="WSClustalW2" binding="tns:WSClustalW2SoapBinding">
+			<soap:address location="http://www.ebi.ac.uk/Tools/es/ws-servers/WSClustalW2"/>
+		</port>
+	</service>
+</definitions>

@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Revision: $Id: WSClustalW.wsdl,v 1.5 2011/03/28 15:57:22 hpm Exp $ -->
+<definitions name="WSClustalW"
+ targetNamespace="http://www.ebi.ac.uk/WSClustalW"
+ xmlns="http://schemas.xmlsoap.org/wsdl/"
+ xmlns:tns="http://www.ebi.ac.uk/WSClustalW"
+ xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"	
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+ xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+	
+ <documentation>
+ClustalW is a general purpose multiple sequence alignment program for DNA or proteins. It produces biologically meaningful multiple sequence alignments of divergent sequences. It calculates the best match for the selected sequences, and lines them up so that the identities, similarities and differences can be seen. Evolutionary relationships can be seen via viewing Cladograms or Phylograms. 
+ 
+  Help pages for ClustalW can be found at http://www.ebi.ac.uk/Tools/clustalw/clustalw_frame.html
+  Documentation for EBI services can be found at http://www.ebi.ac.uk/Tools/webservices/index.html
+  
+  Revision:$Id
+ </documentation>
+	
+ <types>
+  <schema targetNamespace="http://www.ebi.ac.uk/WSClustalW"
+	  xmlns="http://www.w3.org/2001/XMLSchema"
+      xmlns:tns="http://www.ebi.ac.uk/WSClustalW"	  
+	  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+      xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+
+  <xsd:complexType name="inputParams">
+   <xsd:all>
+    <xsd:element name="alignment" type="xsd:string" nillable="true">
+	</xsd:element>
+	<xsd:element name="tree" type="xsd:boolean" nillable="true">
+	</xsd:element>
+    <xsd:element name="align" type="xsd:boolean" nillable="true">
+	</xsd:element>
+    <xsd:element name="quicktree" type="xsd:boolean" nillable="true">
+	</xsd:element>
+	<xsd:element name="outputtree" type="xsd:string" nillable="true">
+	</xsd:element>
+    <xsd:element name="output" type="xsd:string" nillable="true">
+	</xsd:element>    
+    <xsd:element name="ktup" type="xsd:int" nillable="true">	
+    </xsd:element>
+    <xsd:element name="window" type="xsd:int" nillable="true">
+	</xsd:element>
+	<xsd:element name="scores" type="xsd:string" nillable="true">
+	</xsd:element>
+	<xsd:element name="topdiags" type="xsd:int" nillable="true">	
+	</xsd:element>
+    <xsd:element name="pairgap" type="xsd:int" nillable="true">	
+	</xsd:element>
+    <xsd:element name="gapopen" type="xsd:int" nillable="true">	
+	</xsd:element>
+    <xsd:element name="gapclose" type="xsd:int" nillable="true">	
+	</xsd:element>
+    <xsd:element name="gapext" type="xsd:float" nillable="true">
+	</xsd:element>
+    <xsd:element name="gapdist" type="xsd:int" nillable="true">
+	</xsd:element>
+    <xsd:element name="matrix" type="xsd:string" nillable="true">
+	</xsd:element>
+    <xsd:element name="cpu" type="xsd:string" nillable="true">
+	</xsd:element>
+    <xsd:element name="kimura" type="xsd:boolean" nillable="true">	
+	</xsd:element>
+    <xsd:element name="tossgaps" type="xsd:boolean" nillable="true">
+	</xsd:element>    
+    <xsd:element name="outorder" type="xsd:string" nillable="true">
+	</xsd:element>
+    <xsd:element name="email" type="xsd:string" nillable="false">
+	</xsd:element>
+    <xsd:element name="async" type="xsd:boolean" nillable="true">
+	</xsd:element>
+   </xsd:all>
+  </xsd:complexType>
+
+  <xsd:complexType name="data">
+   <xsd:all>
+    <xsd:element name="type" type="xsd:string"></xsd:element>
+    <xsd:element name="content" type="xsd:string"></xsd:element>
+   </xsd:all>
+  </xsd:complexType>
+
+ <xsd:complexType name="ArrayOf_xsd_string">
+   <xsd:complexContent>
+        <xsd:restriction base="soapenc:Array">
+           <xsd:attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:string[]"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="WSArrayofFile">
+   <xsd:complexContent>
+        <xsd:restriction base="soapenc:Array">
+           <xsd:attribute ref="soapenc:arrayType" wsdl:arrayType="tns:WSFile[]"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="WSArrayofData">
+   <xsd:complexContent>
+        <xsd:restriction base="soapenc:Array">
+           <xsd:attribute ref="soapenc:arrayType" wsdl:arrayType="tns:data[]"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="WSFile">
+   <xsd:all>
+    <xsd:element name="type" type="xsd:string"/>
+    <xsd:element name="ext" type="xsd:string"/>
+   </xsd:all>
+  </xsd:complexType>
+
+ </schema>
+</types>
+
+<message name="statusRequest">
+ <part name="jobid" type="xsd:string"/>
+  <documentation> poll takes the jobid returned by the service on an asynchronous job submission.</documentation>
+</message>
+<message name="statusResponse">
+ <part name="status" type="xsd:string"/>
+  <documentation> poll returns the status of the job or if the job is finished, the result </documentation>
+</message>
+<message name="resultsRequest">
+ <part name="jobid" type="xsd:string">
+  <documentation> poll takes the jobid returned by the service on an asynchronous job submission.</documentation>
+ </part>
+</message>
+<message name="resultsResponse">
+ <part name="results" type="tns:WSArrayofFile"/>
+ <documentation> poll returns the status of the job or if the job is finished, the result </documentation>
+</message>
+<message name="pollRequest">
+ <part name="jobid" type="xsd:string"/>
+ <part name="type" type="xsd:string"/>
+ <documentation> poll takes the jobid returned by the service on an asynchronous job submission.</documentation>
+</message>
+<message name="pollResponse">
+ <part name="result" type="xsd:base64Binary"/>	
+ <documentation> poll returns the status of the job or if the job is finished, the result </documentation>
+</message>
+
+<message name="runClustalWRequest">
+ <part name="params" type="tns:inputParams"/>
+ <part name="content" type="tns:WSArrayofData"/>
+ <documentation> </documentation> 
+</message>
+	
+<message name="runClustalWResponse">
+ <part name="jobid" type="xsd:string"/>
+</message>
+	
+<message name="alignIdsRequest">
+ <part name="database" type="xsd:string"/>
+ <part name="sequences" type="xsd:string"/>
+ <part name="alignment" type="xsd:string"/>
+ <part name="email" type="xsd:string"/>
+</message>
+
+<message name="alignIdsResponse">
+ <part name="jobid" type="xsd:string"/>	
+</message>
+
+<message name="alignRequest">
+ <part name="sequences" type="xsd:string"/>
+ <part name="alignment" type="xsd:string"/>
+ <part name="email" type="xsd:string"/>
+</message>
+
+<message name="alignResponse">
+ <part name="jobid" type="xsd:string"/>	
+</message>
+
+<message name="treeRequest">
+ <part name="jobid" type="xsd:string"/>
+ <part name="tree" type="xsd:string"/>
+ <part name="email" type="xsd:string"/>
+</message>
+
+<message name="treeResponse">
+ <part name="jobid" type="xsd:string"/>	
+</message>
+
+<portType name="WSClustalW">
+	
+ <operation name="runClustalW" parameterOrder="params content">
+  <input name="runClustalWRequest" message="tns:runClustalWRequest"></input>
+  <output name="runClustalWResponse" message="tns:runClustalWResponse"></output>
+ </operation>
+
+ <operation name="checkStatus" parameterOrder="jobid">
+  <input name="statusRequest" message="tns:statusRequest"></input>
+  <output name="statusResponse"  message="tns:statusResponse"></output>
+ </operation>
+
+ <operation name="poll" parameterOrder="jobid type">
+  <input name="pollRequest" message="tns:pollRequest"></input>
+  <output name="pollResponse"  message="tns:pollResponse"></output>
+ </operation>	
+
+ <operation name="getResults" parameterOrder="jobid">
+  <input name="resultsRequest" message="tns:resultsRequest"></input>
+  <output name="resultsResponse"  message="tns:resultsResponse"></output>
+ </operation>
+
+ <operation name="align" parameterOrder="sequences alignment email">
+  <input name="alignRequest" message="tns:alignRequest"></input>
+  <output name="alignResponse"  message="tns:alignResponse"></output>
+ </operation>
+
+ <operation name="alignIds" parameterOrder="database sequences alignment email">
+  <input name="alignIdsRequest" message="tns:alignIdsRequest"></input>
+  <output name="alignIdsResponse"  message="tns:alignIdsResponse"></output>
+ </operation>
+  
+  <operation name="tree" parameterOrder="jobid tree email">
+  <input name="treeRequest" message="tns:treeRequest"></input>
+  <output name="treeResponse"  message="tns:treeResponse"></output>
+ </operation>
+ 
+</portType>
+	
+<binding name="WSClustalWSoapBinding" type="tns:WSClustalW">
+<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+ 
+ <operation name="poll">
+ <soap:operation soapAction="http://www.ebi.ac.uk/WSClustalW#poll"/>
+  <input name="pollRequest">
+   <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+	      namespace="http://www.ebi.ac.uk/WSClustalW" use="encoded"/>
+  </input>
+  <output name="pollResponse">
+   <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+	      namespace="http://www.ebi.ac.uk/WSClustalW" use="encoded"/>
+  </output>
+ </operation>
+
+ <operation name="runClustalW">
+ <soap:operation soapAction="http://www.ebi.ac.uk/WSClustalW#runClustalW"/>
+  <input name="runClustalWRequest">
+   <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+	      namespace="http://www.ebi.ac.uk/WSClustalW" use="encoded"/>			
+  </input>
+  <output name="runClustalWResponse">
+   <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+	      namespace="http://www.ebi.ac.uk/WSClustalW" use="encoded"/>
+  </output>
+ </operation>
+
+ <operation name="checkStatus">
+ <soap:operation soapAction="http://www.ebi.ac.uk/WSClustalW#checkStatus"/>
+ <input name="statusRequest">
+   <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+	      namespace="http://www.ebi.ac.uk/WSClustalW" use="encoded"/>
+ </input>
+ <output name="statusResponse">
+   <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+	      namespace="http://www.ebi.ac.uk/WSClustalW" use="encoded"/>
+ </output>		</operation>
+ <operation name="getResults">
+ <soap:operation soapAction="http://www.ebi.ac.uk/WSClustalW#getResults"/>
+ <input name="resultsRequest">
+   <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+	      namespace="http://www.ebi.ac.uk/WSClustalW" use="encoded"/>
+ </input>
+ <output name="resultsResponse">
+   <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+	      namespace="http://www.ebi.ac.uk/WSClustalW" use="encoded"/>
+ </output>
+ </operation>
+ <operation name="align">
+ <soap:operation soapAction="http://www.ebi.ac.uk/WSClustalW#align"/>
+ <input name="alignRequest">
+   <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+	      namespace="http://www.ebi.ac.uk/WSClustalW" use="encoded"/>
+ </input>
+ <output name="alignResponse">
+   <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+	          namespace="http://www.ebi.ac.uk/WSClustalW" use="encoded"/>
+ </output>
+ </operation>
+ <operation name="alignIds">
+ <soap:operation soapAction="http://www.ebi.ac.uk/WSClustalW#alignIds"/>
+ <input name="alignIdsRequest">
+   <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+	      namespace="http://www.ebi.ac.uk/WSClustalW" use="encoded"/>
+ </input>
+ <output name="alignIdsResponse">
+   <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+	          namespace="http://www.ebi.ac.uk/WSClustalW" use="encoded"/>
+ </output>
+ </operation>
+ <operation name="tree">
+ <soap:operation soapAction="http://www.ebi.ac.uk/WSClustalW#tree"/>
+ <input name="treeRequest">
+   <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+	          namespace="http://www.ebi.ac.uk/WSClustalW" use="encoded"/>
+ </input>
+ <output name="treeResponse">
+   <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+	          namespace="http://www.ebi.ac.uk/WSClustalW" use="encoded"/>
+ </output>
+ </operation>
+</binding>
+	
+ <service name="WSClustalWService">
+  <documentation>WSClustalW: protein and nucleotide multiple sequence alignment using ClustalW (see http://www.ebi.ac.uk/Tools/webservices/services/clustalw).
+  
+  Note: this RPC/encoded SOAP service was decommissioned on Monday 28th March 2011, see http://www.ebi.ac.uk/Tools/webservices/services/clustalw for details of alternative REST and document/literal SOAP services.
+  </documentation>
+  <port name="WSClustalW" binding="tns:WSClustalWSoapBinding">
+   <soap:address location="http://www.ebi.ac.uk/Tools/es/ws-servers/WSClustalW"/>
+  </port>
+</service>
+
+</definitions>
+
