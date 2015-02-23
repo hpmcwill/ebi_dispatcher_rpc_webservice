@@ -305,9 +305,25 @@ class WuBlastSoap {
   }
 }
 
-// Initialise the WSWUBlast RPC/encoded SOAP interface.
-$WSWUBlast_WSDL = 'WSWUBlast_alt.wsdl';
-$server = new SoapServer($WSWUBlast_WSDL);
-$server->setClass('WuBlastSoap');
-$server->handle();
+if($_SERVER['REQUEST_METHOD'] == 'GET') {
+  ?>
+<html>
+<head>
+<title>WSWUBlast</title>
+</head>
+<body>
+<h1>WSWUBlast</h1>
+<hr />
+<p>See <a href="http://www.bioinfo-user.org.uk/dokuwiki/doku.php/bioinformatics/ebiws-1">documentation</a>.</p>
+<hr />
+</body>
+</html>
+<?php
+} else {
+  // Initialise the WSWUBlast RPC/encoded SOAP interface.
+  $WSWUBlast_WSDL = 'WSWUBlast_alt.wsdl';
+  $server = new SoapServer($WSWUBlast_WSDL);
+  $server->setClass('WuBlastSoap');
+  $server->handle();
+}
 ?>

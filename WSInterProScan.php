@@ -202,9 +202,25 @@ class InterProScanSoap {
   }
 }
 
-// Initialise the InterProScan RPC/encoded SOAP interface.
-$WSInterProScan_WSDL = 'WSInterProScan_alt.wsdl';
-$server = new SoapServer($WSInterProScan_WSDL);
-$server->setClass('InterProScanSoap');
-$server->handle();
+if($_SERVER['REQUEST_METHOD'] == 'GET') {
+  ?>
+<html>
+<head>
+<title>WSInterProScan</title>
+</head>
+<body>
+<h1>WSInterProScan</h1>
+<hr />
+<p>See <a href="http://www.bioinfo-user.org.uk/dokuwiki/doku.php/bioinformatics/ebiws-1">documentation</a>.</p>
+<hr />
+</body>
+</html>
+<?php
+} else {
+  // Initialise the InterProScan RPC/encoded SOAP interface.
+  $WSInterProScan_WSDL = 'WSInterProScan_alt.wsdl';
+  $server = new SoapServer($WSInterProScan_WSDL);
+  $server->setClass('InterProScanSoap');
+  $server->handle();
+}
 ?>
